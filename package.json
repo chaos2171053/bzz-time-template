@@ -21,14 +21,14 @@
 			}
 		],
 		"menus": {
-      "explorer/context": [
-        {
-          "command": "bzz-time-template.activeExtension",
-          "group": "z_commands",
-          "title": "Generate: bzz time template"
-        }
-      ]
-    }
+			"explorer/context": [
+				{
+					"command": "bzz-time-template.activeExtension",
+					"group": "z_commands",
+					"title": "Generate: bzz time template"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -50,5 +50,9 @@
 		"mocha": "^8.1.3",
 		"typescript": "^4.0.2",
 		"vscode-test": "^1.4.0"
+	},
+	"dependencies": {
+		"@types/fs-extra": "^9.0.3",
+		"fs-extra": "^9.0.1"
 	}
 }
