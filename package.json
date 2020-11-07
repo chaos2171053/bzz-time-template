@@ -10,16 +10,25 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:bzz-time-template.helloWorld"
+		"onCommand:bzz-time-template.activeExtension"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "bzz-time-template.helloWorld",
-				"title": "Hello World"
+				"command": "bzz-time-template.activeExtension",
+				"title": "Generate: bzz time template"
 			}
-		]
+		],
+		"menus": {
+      "explorer/context": [
+        {
+          "command": "bzz-time-template.activeExtension",
+          "group": "z_commands",
+          "title": "Generate: bzz time template"
+        }
+      ]
+    }
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
