@@ -6,6 +6,7 @@ import {
   Form,
 } from 'choerodon-ui/pro';
 import Store from './stores';
+// TODO: 把 payment 替换为 微服务名
 import { renderNum } from '../../../payment-utils';
 import './styles/list.less';
 

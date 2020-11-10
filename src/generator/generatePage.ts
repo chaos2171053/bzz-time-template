@@ -63,6 +63,22 @@ class GeneratePage {
         templateName:'ComponentName.less',
       });
 
+      // create components directory
+      const componentsDir = createDir(listDir, 'components');
+
+      // create modal directory
+      const modalDir = createDir(listDir, 'modal');
+
+      // create stores directory
+      const storesDir = createDir(listDir, 'stores');
+
+      // create list`s index store
+      new CreateTemplate({
+        filePath:storesDir,
+        fileName:'index.js',
+        templateName:'IndexStore.js',
+      });
+
     } catch (error) {
       throw new Error(error);
       
