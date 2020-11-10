@@ -1,31 +1,44 @@
 import * as vscode from "vscode";
+import firstCharUpper from "../utils/firstCharUpper";
 import message from "../utils/message";
 import CreateComponent from "./createComponent";
-
+import createDir from './createDir';
+import CreateStyle from "./createStyle";
+/**
+ * 生成 组件名目录/组件名.js + 组件名.less
+ */
 class GenerateComponent {
+  componentName: string = "";
+  uri;
   constructor(uri:vscode.Uri){
-    this.init(uri);
+    this.uri = uri;
+    this.init();
   }
   /**
    * 创建组件
    */
-  public async init(uri:vscode.Uri) {
+  public async init() {
     let componentName = await vscode.window.showInputBox({
       prompt: "请输入组件名称.",
     });
+    let newComponent = null;
+    let newComponentStyle = null;
 
     if (!componentName || componentName.length === 0) {
       message("error", "组件名不能为空");
       throw new Error("Component name can not be empty");
     }
 
-    componentName = componentName.replace(/[^A-Za-z]/g, "");
+    this.componentName = firstCharUpper(componentName.replace(/[^A-Za-z]/g, ""));
 
     try {
-      new CreateComponent(uri, componentName);
+      const componentDir = createDir(this.uri.path, this.componentName);
+      newComponent = new CreateComponent(componentDir, this.componentName);
+      newComponentStyle = new CreateStyle(componentDir,this.componentName);
     } catch (error) {
-      message("error", error);
+      throw new Error(error);
     }
+    return {newComponent,newComponentStyle};
   }
 }
 export default GenerateComponent;

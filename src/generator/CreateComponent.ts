@@ -1,54 +1,41 @@
 import * as path from "path";
 import * as fse from 'fs-extra';
-import { Uri } from "vscode";
-import createDir from "./createDir";
 import firstCharUpper from "../utils/firstCharUpper";
 import createFile from './createFile';
-
+/**
+ * 生成 组件名.js
+ */
 export default class CreateComponent {
   // 必须把 templates 目录放到项目根目录。否则 templates 下的文件加载时不会被读取到。
-  public static assetRootDir: string = path.join(__dirname, "../../templates/ComponentName");
+  public static assetRootDir: string = path.join(__dirname, "../../templates/ComponentName.js");
   componentName: string = "";
-  uri;
-  constructor(uri: Uri, componentName: string) {
-    this.uri = uri;
+  componentPath: string = "";
+  constructor(componentPath:string, componentName: string) {
+    this.componentPath = componentPath;
     this.componentName = firstCharUpper(componentName);
     this.init();
-   
   }
   public init () {
-    const componentDir =  this.createComponentDir();
-    this.createComponentFile(componentDir);
+    this.createComponentFile();
   }
 
-  public createComponentDir(): string {
-    const componentDir = createDir(this.uri, this.componentName);
-    console.log("Create component dirctory :", componentDir);
-    return componentDir;
-  }
-  public async createComponentFile(componentDir:string) {
+  public async createComponentFile() {
     let componentJsContent = '';
-    let componentStyleContent = '';
     let jsFile  = null;
-    let styleFile =null;
+    const componentDir:string = this.componentPath;
+    const componentName:string = this.componentName;
     try {
-      componentJsContent = fse.readFileSync(`${CreateComponent.assetRootDir}.js`,'utf8').toString(); 
-      componentStyleContent = fse.readFileSync(`${CreateComponent.assetRootDir}.less`,'utf8').toString();  
+      componentJsContent = fse.readFileSync(CreateComponent.assetRootDir,'utf8').toString(); 
     } catch (error) {
       throw new Error(error);
       
     }
-
-    componentJsContent = componentJsContent.replace(/ComponentName/g,this.componentName);
+    componentJsContent = componentJsContent.replace(/ComponentName/g,componentName);
     try {
-      jsFile = await createFile(`${componentDir}/${this.componentName}.js`,componentJsContent);
-      styleFile = await createFile(`${componentDir}/${this.componentName}.less`,componentStyleContent);
+      jsFile = await createFile(`${componentDir}/${componentName}.js`,componentJsContent);
     } catch (error) {
       throw new Error(error);
     }
-    return {
-      jsFile,
-      styleFile,
-    };
+    return jsFile;
   }
 }
