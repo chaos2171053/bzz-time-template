@@ -54,6 +54,15 @@ class GeneratePage {
         templateName:'ListComponent.js',
       });
 
+      const styleDir = createDir(listDir, 'styles');
+
+      // create styles/list.less
+      new CreateTemplate({
+        filePath:styleDir,
+        fileName:'list.less',
+        templateName:'ComponentName.less',
+      });
+
     } catch (error) {
       throw new Error(error);
       
