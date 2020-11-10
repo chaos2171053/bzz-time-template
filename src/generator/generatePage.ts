@@ -40,11 +40,18 @@ class GeneratePage {
       // create list directory in page directory
       const listDir = createDir(pageDir, 'list');
 
-      // create page StoreProvider.js
+      // create page`s StoreProvider
       new CreateTemplate({
         filePath:listDir,
         fileName:'index.js',
         templateName:'PageStoreProvider.js',
+      });
+
+      // create page`s list
+      new CreateTemplate({
+        filePath:listDir,
+        fileName:'List.js',
+        templateName:'ListComponent.js',
       });
 
     } catch (error) {
