@@ -4,9 +4,6 @@ import './ComponentName.less';
 function ComponentName() {
   return (
     <>
-      <div>
-      {ComponentName}
-      </div>
     </>
   );
 }
