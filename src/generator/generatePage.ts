@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
 import message from "../utils/message";
+import createDir from "./createDir";
+import CreateRoute from "./createRoute";
 class GeneratePage {
   pageName: string = "";
   uri;
@@ -11,6 +13,7 @@ class GeneratePage {
    * init
    */
   public async init() {
+    const pagePath  = this.uri.path;
     let pageName = await vscode.window.showInputBox({
       prompt: "请输入页面名称.",
     });
@@ -23,6 +26,13 @@ class GeneratePage {
     this.pageName = pageName.replace(/[^A-Za-z]/g, "");
 
     console.log('Generate Page name: ', this.pageName);
+    try {
+      const pageDir = createDir(pagePath, pageName);
+      const routeIndex  = new CreateRoute(pageDir);
+    } catch (error) {
+      throw new Error(error);
+      
+    }
 
   }
 
