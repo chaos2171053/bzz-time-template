@@ -1,4 +1,3 @@
-import { Uri } from "vscode";
 import * as fse from "fs-extra";
 
 export default function createDir(path:string, dirName: string): string {

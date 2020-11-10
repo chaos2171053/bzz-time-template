@@ -1,40 +1,38 @@
 import * as vscode from "vscode";
 import firstCharUpper from "../utils/firstCharUpper";
-import message from "../utils/message";
-import CreateComponent from "./createComponent";
 import createDir from './createDir';
-import CreateStyle from "./createStyle";
+import CreateTemplate from './createTemplate';
 /**
  * 生成 组件名目录/组件名.js + 组件名.less
  */
 class GenerateComponent {
   componentName: string = "";
   uri;
-  constructor(uri:vscode.Uri){
+  constructor(uri:vscode.Uri,componentName:string){
     this.uri = uri;
+    this.componentName = firstCharUpper(componentName.replace(/[^A-Za-z]/g, ""));
     this.init();
   }
   /**
    * 创建组件
    */
   public async init() {
-    let componentName = await vscode.window.showInputBox({
-      prompt: "请输入组件名称.",
-    });
     let newComponent = null;
     let newComponentStyle = null;
 
-    if (!componentName || componentName.length === 0) {
-      message("error", "组件名不能为空");
-      throw new Error("Component name can not be empty");
-    }
-
-    this.componentName = firstCharUpper(componentName.replace(/[^A-Za-z]/g, ""));
-
     try {
       const componentDir = createDir(this.uri.path, this.componentName);
-      newComponent = new CreateComponent(componentDir, this.componentName);
-      newComponentStyle = new CreateStyle(componentDir,this.componentName);
+      newComponent = new CreateTemplate({
+        filePath:componentDir,
+        fileName:`${this.componentName}.js`,
+        templateName:'ComponentName.js',
+        replaceFileName:true,
+      });
+      newComponentStyle =  new CreateTemplate({
+        filePath:componentDir,
+        fileName:`${this.componentName}.less`,
+        templateName:'ComponentName.less',
+      });
     } catch (error) {
       throw new Error(error);
     }
