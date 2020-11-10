@@ -12,7 +12,7 @@
 
 支持自动生成组件。
 
-![demo-button](/static/demo-button.gif)
+![demo-button](https://github.com/chaos2171053/bzz-time-template/blob/develop/static/demo-button.gif?raw=true)
 
 ## TODO
 
