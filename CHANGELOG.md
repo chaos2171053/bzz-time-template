@@ -2,8 +2,8 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [1.0.0] - 2020-11-10
 
-## [Unreleased]
+### Added
 
-- Initial release
+- 支持自动生成组件 js、less 文件。
