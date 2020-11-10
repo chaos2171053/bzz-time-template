@@ -1,14 +1,14 @@
 import * as vscode from "vscode";
-import * as fs from "fs";
+import * as fse from "fs-extra";
 import { window } from "vscode";
 import message from "./utils/message";
-import CreateComponent from "./generator/CreateComponent";
+import CreateComponent from "./generator/createComponent";
 async function main(uri: vscode.Uri) {
   const { path } = uri;
 
   console.log("Work path :", path);
 
-  if (!uri || !path || !fs.statSync(path).isDirectory()) {
+  if (!uri || !path || !fse.statSync(path).isDirectory()) {
     message("error", "请选择要生成模版的目录");
     return false;
   }
