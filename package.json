@@ -28,7 +28,7 @@
 		"onCommand:bzz-time-template.activeExtension"
 	],
 	"main": "./out/extension.js",
-	"icon": "https://raw.githubusercontent.com/chaos2171053/bzz-time-template/develop/static/icon.png",
+	"icon": "static/icon.png",
 	"contributes": {
 		"commands": [
 			{
