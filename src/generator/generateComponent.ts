@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import message from "../utils/message";
-import CreateComponent from "../generator/createComponent";
+import CreateComponent from "./createComponent";
 
-class GenrateCompoent {
+class GenerateComponent {
   constructor(uri:vscode.Uri){
     this.init(uri);
   }
@@ -28,4 +28,4 @@ class GenrateCompoent {
     }
   }
 }
-export default GenrateCompoent;
+export default GenerateComponent;

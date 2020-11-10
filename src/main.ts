@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
 import * as fse from "fs-extra";
 import message from "./utils/message";
-import  generateComponent from './generator/generateComponent';
+import  GenrateComponent from './generator/generateComponent';
+import GeneratePage from './generator/generatePage';
 
 async function main(uri: vscode.Uri) {
   const { path } = uri;
@@ -21,10 +22,10 @@ async function main(uri: vscode.Uri) {
 
   switch (templateType) {
     case "页面":
-      message("warning", "Sorry，努力开发中 ^_^");
+      new GeneratePage(uri);
       break;
     case "组件":
-      new generateComponent(uri);
+      new GenrateComponent(uri);
       break;
     default:
       break;
