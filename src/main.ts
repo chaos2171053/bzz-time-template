@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import * as fse from "fs-extra";
-import { window } from "vscode";
 import message from "./utils/message";
-import CreateComponent from "./generator/createComponent";
+import  generateComponent from './generator/generateComponent';
+
 async function main(uri: vscode.Uri) {
   const { path } = uri;
 
@@ -13,7 +13,7 @@ async function main(uri: vscode.Uri) {
     return false;
   }
 
-  const templateType = await window.showQuickPick(["页面", "组件"], {
+  const templateType = await vscode.window.showQuickPick(["页面", "组件"], {
     placeHolder: "请选择模版类型",
   });
 
@@ -24,24 +24,7 @@ async function main(uri: vscode.Uri) {
       message("warning", "Sorry，努力开发中 ^_^");
       break;
     case "组件":
-      let componentName = await window.showInputBox({
-        prompt: "请输入组件名称.",
-      });
-
-      if (!componentName || componentName.length === 0) {
-        message("error", "组件名不能为空");
-        throw new Error("Component name can not be empty");
-      }
-
-      componentName = componentName.replace(/[^A-Za-z]/g, "");
-
-      try {
-        new CreateComponent(uri, componentName);
-        message("success", `创建组件${componentName}成功`);
-      } catch (error) {
-        message("error", error);
-      }
-
+      new generateComponent(uri);
       break;
     default:
       break;

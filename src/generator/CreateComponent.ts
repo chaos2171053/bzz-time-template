@@ -30,7 +30,7 @@ export default class CreateComponent {
     let componentJsContent = '';
     let componentStyleContent = '';
     let jsFile  = null;
-    let styleFile =null
+    let styleFile =null;
     try {
       componentJsContent = fse.readFileSync(`${CreateComponent.assetRootDir}.js`,'utf8').toString(); 
       componentStyleContent = fse.readFileSync(`${CreateComponent.assetRootDir}.less`,'utf8').toString();  
@@ -46,6 +46,9 @@ export default class CreateComponent {
     } catch (error) {
       throw new Error(error);
     }
-    return true;
+    return {
+      jsFile,
+      styleFile,
+    };
   }
 }
