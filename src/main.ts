@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as fse from "fs-extra";
 import message from "./utils/message";
-import  GenrateComponent from './generator/generateComponent';
+import  GenerateComponent from './generator/generateComponent';
 import GeneratePage from './generator/generatePage';
 
 async function main(uri: vscode.Uri) {
@@ -25,7 +25,18 @@ async function main(uri: vscode.Uri) {
       new GeneratePage(uri);
       break;
     case "组件":
-      new GenrateComponent(uri);
+
+      const componentName = await vscode.window.showInputBox({
+        prompt: "请输入组件名称.",
+      });
+
+      if (!componentName || componentName.length === 0) {
+        message("error", "组件名不能为空");
+        throw new Error("Component name can not be empty");
+      }
+
+      new GenerateComponent(uri,componentName);
+
       break;
     default:
       break;

@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import message from "../utils/message";
 import createDir from "./createDir";
-import CreateRoute from "./createRoute";
+import CreateTemplate from "./createTemplate";
 class GeneratePage {
   pageName: string = "";
   uri;
@@ -27,8 +27,26 @@ class GeneratePage {
 
     console.log('Generate Page name: ', this.pageName);
     try {
+      // create page directory
       const pageDir = createDir(pagePath, pageName);
-      const routeIndex  = new CreateRoute(pageDir);
+
+      // create page route index.js
+      new CreateTemplate({
+        filePath:pageDir,
+        fileName:'index.js',
+        templateName:'route.js'
+      });
+
+      // create list directory in page directory
+      const listDir = createDir(pageDir, 'list');
+
+      // create page StoreProvider.js
+      new CreateTemplate({
+        filePath:listDir,
+        fileName:'index.js',
+        templateName:'PageStoreProvider.js',
+      });
+
     } catch (error) {
       throw new Error(error);
       
