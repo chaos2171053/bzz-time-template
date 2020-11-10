@@ -2,22 +2,22 @@
 	"name": "bzz-time-template",
 	"displayName": "bzz-time-template",
 	"description": "Auto generate code",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"publisher": "chaos2171053",
-  "author": {
-    "name": "chaos2171053",
-    "email": "chaos2171053@gmail.com"
+	"author": {
+		"name": "chaos2171053",
+		"email": "chaos2171053@gmail.com"
 	},
 	"homepage": "https://github.com/chaos2171053/bzz-time-template",
 	"repository": {
-    "type": "git",
-    "url": "https://github.com/chaos2171053/bzz-time-template.git"
-  },
-  "bugs": {
-    "url": "https://github.com/chaos2171053/bzz-time-template/issues",
-    "email": "chaos2171053@gmail.com"
-  },
-  "license": "MIT",
+		"type": "git",
+		"url": "https://github.com/chaos2171053/bzz-time-template.git"
+	},
+	"bugs": {
+		"url": "https://github.com/chaos2171053/bzz-time-template/issues",
+		"email": "chaos2171053@gmail.com"
+	},
+	"license": "MIT",
 	"engines": {
 		"vscode": "^1.51.0"
 	},
