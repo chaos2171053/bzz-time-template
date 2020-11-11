@@ -14,6 +14,7 @@ import { renderNum } from '../../../payment-utils';
 // TODO: 把 payment 替换为 微服务名,并确认有 useListRefresh 这个hook
 import useListRefresh from '../../../pay-hooks/useListRefresh';
 import './styles/List.less';
+// TODO: 建议把 Modal 名字改得更详细易懂
 import CreateModal from './modal/CreateModal';
 
 const { Column } = Table;
@@ -35,9 +36,12 @@ function ListView(props) {
     organizationId,
     AppState,
     listDataSet,
+    // TODO: 建议把 createDataSet 名字改得更详细易懂
+    createDataSet,
   } = context;
 
   const onClickAddBtn = () => {
+    createDataSet.create();
     Modal.open({
       key: Modal.key(),
       title: '新增',
@@ -51,7 +55,7 @@ function ListView(props) {
       onOk() {
       },
       onClose() {
-
+        createDataSet.reset();
       },
     });
   };

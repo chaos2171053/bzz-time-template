@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 import { observer } from 'mobx-react-lite';
 import ListDataSet from './ListDataSet';
+import CreateDataSet from './CreateDataSet';
 
 const Store = createContext();
 
@@ -32,6 +33,17 @@ export const StoreProvider = injectIntl(
           )
       );
 
+      const createCouponDataSet = useMemo(
+        () =>
+          new DataSet(
+            CreateCouponDataSet({
+              organizationId,
+              communityId,
+            }),
+            []
+          )
+      );
+
       const value = {
         ...props,
         prefixCls: 'br-org',
@@ -39,6 +51,7 @@ export const StoreProvider = injectIntl(
         organizationId,
         intlPrefix,
         listDataSet,
+        createCouponDataSet,
       };
 
       return (

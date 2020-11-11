@@ -80,12 +80,21 @@ class GeneratePage {
       // create stores directory
       const storesDir = createDir(listDir, 'stores');
 
+      // create add modal`s dataset
+      new CreateTemplate({
+        filePath:storesDir,
+        fileName:'CreateDateSet.js',
+        templateName:'CreateDateSet.js',
+      });
+
       // create list`s index store
       new CreateTemplate({
         filePath:storesDir,
         fileName:'index.js',
         templateName:'IndexStore.js',
       });
+
+
 
       // create listdataset
       new CreateTemplate({
