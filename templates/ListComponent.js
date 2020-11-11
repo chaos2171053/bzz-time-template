@@ -8,6 +8,8 @@ import {
 import Store from './stores';
 // TODO: 把 payment 替换为 微服务名
 import { renderNum } from '../../../payment-utils';
+// TODO: 把 payment 替换为 微服务名,并确认有 useListRefresh 这个hook
+import useListRefresh from '../../../pay-hooks/useListRefresh';
 import './styles/List.less';
 
 const { Column } = Table;
@@ -21,6 +23,12 @@ function ListView(props) {
   } = context;
 
   const tableButtons = [['query', { icon: 'refresh', children: '刷新' }]];
+
+  const { refresh } = useListRefresh({
+    listDataSet,
+    communityId: AppState.communityId,
+    organizationId,
+  });
 
   return (
     <>
