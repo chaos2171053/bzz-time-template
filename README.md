@@ -11,6 +11,7 @@
 ## Features
 
 1. 自动生成页面，含 list、modal、dataset。
+   ![demo-page](https://github.com/chaos2171053/bzz-time-template/blob/develop/static/demo-page.gif?raw=true)
 2. 自动生成组件 js 文件、less 文件。
    ![demo-button](https://github.com/chaos2171053/bzz-time-template/blob/develop/static/demo-button.gif?raw=true)
 
