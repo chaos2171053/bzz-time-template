@@ -8,6 +8,10 @@ import {
   Button,
   Modal,
 } from 'choerodon-ui/pro';
+import {
+  Popconfirm,
+} from 'choerodon-ui';
+
 import Store from './stores';
 // TODO: 把 payment 替换为 微服务名
 import { renderNum } from '../../../payment-utils';
@@ -50,7 +54,45 @@ function ListView(props) {
       destroyOnClose: true,
       drawer: true,
       children: (
-        <CreateModal />
+        <CreateModal createDataSet={createDataSet} />
+      ),
+      onOk() {
+      },
+      onClose() {
+        createDataSet.reset();
+      },
+    });
+  };
+  const onClickEditBtn = () => {
+    createDataSet.create();
+    Modal.open({
+      key: Modal.key(),
+      title: '编辑',
+      style: modalStyle,
+      fullScreen: false,
+      destroyOnClose: true,
+      drawer: true,
+      children: (
+        <CreateModal createDataSet={createDataSet} />
+      ),
+      onOk() {
+      },
+      onClose() {
+        createDataSet.reset();
+      },
+    });
+  };
+  const onClickCheckBtn = () => {
+    createDataSet.create();
+    Modal.open({
+      key: Modal.key(),
+      title: '查看',
+      style: modalStyle,
+      fullScreen: false,
+      destroyOnClose: true,
+      drawer: true,
+      children: (
+        <CreateModal createDataSet={createDataSet} />
       ),
       onOk() {
       },
@@ -74,6 +116,55 @@ function ListView(props) {
     organizationId,
   });
 
+  function renderOperations({ record }) {
+    const buttonProps = {
+      color: 'primary',
+      funcType: 'raised',
+      size: 'small',
+    };
+    return (
+      <>
+        <Tooltip placement="bottom" title="查看">
+          <Button
+            {...buttonProps}
+            icon="details"
+            key="opt-check"
+            onClick={() => {
+              onClickCheckBtn();
+            }}
+          />
+        </Tooltip>
+        <Tooltip placement="bottom" title="编辑">
+          <Button
+            {...buttonProps}
+            icon="mode_edit"
+            key="opt-edit"
+            onClick={() => {
+              onClickEditBtn();
+            }}
+          />
+        </Tooltip>
+        <Tooltip placement="bottom" title="删除">
+          <Popconfirm
+            title="确认删除该优惠券?"
+            okText="确认"
+            cancelText="取消"
+            onConfirm={async () => {
+              refresh();
+            }}
+          >
+            <Button
+              {...buttonProps}
+              icon="delete"
+              key="opt-del"
+              onClick={() => { }}
+            />
+          </Popconfirm>
+        </Tooltip>
+      </>
+    );
+  }
+
   return (
     <>
       <Content>
@@ -94,6 +185,13 @@ function ListView(props) {
               lock="left"
               align="center"
               key="rowNum"
+            />
+            <Column
+              header="操作"
+              renderer={renderOperations}
+              lock="right"
+              align="center"
+              width={180}
             />
           </Table>
         </Form>
