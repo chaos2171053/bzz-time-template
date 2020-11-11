@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import {
   Table,
   Form,
+  Tooltip,
 } from 'choerodon-ui/pro';
 import Store from './stores';
 // TODO: 把 payment 替换为 微服务名
@@ -13,6 +14,14 @@ import useListRefresh from '../../../pay-hooks/useListRefresh';
 import './styles/List.less';
 
 const { Column } = Table;
+
+function renderTooltip({ value }) {
+  return (
+    <Tooltip placement="bottom" title={value}>
+      <span>{value}</span>
+    </Tooltip>
+  );
+}
 
 function ListView(props) {
   const context = useContext(Store);
