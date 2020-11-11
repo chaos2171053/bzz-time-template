@@ -5,6 +5,7 @@ import {
   Table,
   Form,
   Tooltip,
+  Button,
 } from 'choerodon-ui/pro';
 import Store from './stores';
 // TODO: 把 payment 替换为 微服务名
@@ -31,7 +32,13 @@ function ListView(props) {
     listDataSet,
   } = context;
 
-  const tableButtons = [['query', { icon: 'refresh', children: '刷新' }]];
+  const tableButtons = [
+    [
+      <Button icon="playlist_add" funcType="flat" onClick={() => { }}>
+        添加
+      </Button>,
+    ],
+    ['query', { icon: 'refresh', children: '刷新' }]];
 
   const { refresh } = useListRefresh({
     listDataSet,
