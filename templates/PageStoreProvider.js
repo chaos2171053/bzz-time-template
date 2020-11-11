@@ -1,9 +1,9 @@
 import React from 'react';
 import { StoreProvider } from './stores';
-import ListView from './ListView';
+import List from './List';
 
 export default (props) => (
   <StoreProvider {...props}>
-    <ListView />
+    <List />
   </StoreProvider>
 );
