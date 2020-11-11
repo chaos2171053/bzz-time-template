@@ -20,18 +20,18 @@ export default ({ organizationId, communityId }) => {
     queryFields: [
     ],
     transport: {
-      read: (queryParams) => {
-        const { params } = queryParams;
-        return {
-          url: '',
-          method: 'get',
-          params: {
-            ...params,
-            communityId,
-            organizationId,
-          },
-        };
-      },
+      // read: (queryParams) => {
+      //   const { params } = queryParams;
+      //   return {
+      //     url: '',
+      //     method: 'get',
+      //     params: {
+      //       ...params,
+      //       communityId,
+      //       organizationId,
+      //     },
+      //   };
+      // },
     },
   };
 };
