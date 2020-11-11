@@ -56,10 +56,10 @@ class GeneratePage {
 
       const styleDir = createDir(listDir, 'styles');
 
-      // create styles/list.less
+      // create styles/List.less
       new CreateTemplate({
         filePath:styleDir,
-        fileName:'list.less',
+        fileName:'List.less',
         templateName:'ComponentName.less',
       });
 
@@ -77,6 +77,13 @@ class GeneratePage {
         filePath:storesDir,
         fileName:'index.js',
         templateName:'IndexStore.js',
+      });
+
+      // create listdataset
+      new CreateTemplate({
+        filePath:storesDir,
+        fileName:'ListDataSet.js',
+        templateName:'ListDaSet.js',
       });
 
     } catch (error) {
