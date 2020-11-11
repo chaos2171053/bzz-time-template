@@ -20,7 +20,7 @@ function ListView(props) {
     listDataSet,
   } = context;
 
-  const tableButtons = [];
+  const tableButtons = [['query', { icon: 'refresh', children: '刷新' }]];
 
   return (
     <>
