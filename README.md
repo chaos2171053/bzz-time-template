@@ -1,4 +1,4 @@
-# bzz-time-template README
+# bzz-time-template
 
 <p align="center">
     <img alt="logo" src="https://github.com/chaos2171053/bzz-time-template/blob/develop/static/icon.png?raw=true" width="120" height="120" style="margin-bottom: 10px;">
@@ -16,6 +16,10 @@
    ![demo-button](https://github.com/chaos2171053/bzz-time-template/blob/develop/static/demo-button.gif?raw=true)
 
 ## Quickstart
+
+### Install
+
+[Visual Studio Code marketplace 搜索 bzz-time-template](https://marketplace.visualstudio.com/items?itemName=chaos2171053.bzz-time-template)
 
 ### 生成业务页面
 
