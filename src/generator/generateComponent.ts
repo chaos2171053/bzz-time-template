@@ -1,4 +1,3 @@
-import * as vscode from "vscode";
 import firstCharUpper from "../utils/firstCharUpper";
 import createDir from './createDir';
 import CreateTemplate from './createTemplate';
@@ -7,9 +6,9 @@ import CreateTemplate from './createTemplate';
  */
 class GenerateComponent {
   componentName: string = "";
-  uri;
-  constructor(uri:vscode.Uri,componentName:string){
-    this.uri = uri;
+  outputPath:string="";
+  constructor(outputPath:string,componentName:string){
+    this.outputPath = outputPath;
     this.componentName = firstCharUpper(componentName.replace(/[^A-Za-z]/g, ""));
     this.init();
   }
@@ -21,7 +20,7 @@ class GenerateComponent {
     let newComponentStyle = null;
 
     try {
-      const componentDir = createDir(this.uri.path, this.componentName);
+      const componentDir = createDir(this.outputPath, this.componentName);
       newComponent = new CreateTemplate({
         filePath:componentDir,
         fileName:`${this.componentName}.js`,

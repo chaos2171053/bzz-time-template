@@ -35,7 +35,7 @@ async function main(uri: vscode.Uri) {
         throw new Error("Component name can not be empty");
       }
 
-      new GenerateComponent(uri,componentName);
+      new GenerateComponent(uri.path,componentName);
 
       break;
     default:
