@@ -68,6 +68,14 @@ class GeneratePage {
 
       // create modal directory
       const modalDir = createDir(listDir, 'modal');
+      // create modal comonent
+      new CreateTemplate({
+        filePath:modalDir,
+        fileName:'CreateModal.js',
+        templateName:'ComponentName.js',
+        replaceFileName:true,
+      });
+
 
       // create stores directory
       const storesDir = createDir(listDir, 'stores');

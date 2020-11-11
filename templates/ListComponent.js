@@ -6,6 +6,7 @@ import {
   Form,
   Tooltip,
   Button,
+  Modal,
 } from 'choerodon-ui/pro';
 import Store from './stores';
 // TODO: 把 payment 替换为 微服务名
@@ -13,8 +14,12 @@ import { renderNum } from '../../../payment-utils';
 // TODO: 把 payment 替换为 微服务名,并确认有 useListRefresh 这个hook
 import useListRefresh from '../../../pay-hooks/useListRefresh';
 import './styles/List.less';
+import CreateModal from './modal/CreateModal';
 
 const { Column } = Table;
+const modalStyle = {
+  width: '40%',
+};
 
 function renderTooltip({ value }) {
   return (
@@ -32,9 +37,28 @@ function ListView(props) {
     listDataSet,
   } = context;
 
+  const onClickAddBtn = () => {
+    Modal.open({
+      key: Modal.key(),
+      title: '新增',
+      style: modalStyle,
+      fullScreen: false,
+      destroyOnClose: true,
+      drawer: true,
+      children: (
+        <CreateModal />
+      ),
+      onOk() {
+      },
+      onClose() {
+
+      },
+    });
+  };
+
   const tableButtons = [
     [
-      <Button icon="playlist_add" funcType="flat" onClick={() => { }}>
+      <Button icon="playlist_add" funcType="flat" onClick={() => { onClickAddBtn(); }}>
         添加
       </Button>,
     ],
