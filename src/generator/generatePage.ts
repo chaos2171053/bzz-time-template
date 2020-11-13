@@ -83,8 +83,8 @@ class GeneratePage {
       // create add modal`s dataset
       new CreateTemplate({
         filePath:storesDir,
-        fileName:'CreateDateSet.js',
-        templateName:'CreateDateSet.js',
+        fileName:'CreateDataSet.js',
+        templateName:'CreateDataSet.js',
       });
 
       // create list`s index store

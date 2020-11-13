@@ -33,10 +33,10 @@ export const StoreProvider = injectIntl(
           )
       );
 
-      const createCouponDataSet = useMemo(
+      const createDataSet = useMemo(
         () =>
           new DataSet(
-            CreateCouponDataSet({
+            CreateDataSet({
               organizationId,
               communityId,
             }),
@@ -51,7 +51,7 @@ export const StoreProvider = injectIntl(
         organizationId,
         intlPrefix,
         listDataSet,
-        createCouponDataSet,
+        createDataSet,
       };
 
       return (
