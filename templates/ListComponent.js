@@ -102,12 +102,16 @@ function ListView(props) {
     });
   };
 
-  const tableButtons = [
-    [
+  function renderCreateBtn() {
+    return (
       <Button icon="playlist_add" funcType="flat" onClick={() => { onClickAddBtn(); }}>
         添加
-      </Button>,
-    ],
+      </Button>
+    );
+  }
+
+  const tableButtons = [
+    renderCreateBtn(),
     ['query', { icon: 'refresh', children: '刷新' }]];
 
   const { refresh } = useListRefresh({
@@ -179,7 +183,6 @@ function ListView(props) {
             key="timework-talbe"
           >
             <Column
-              width={70}
               name="rowNum"
               renderer={renderNum}
               lock="left"

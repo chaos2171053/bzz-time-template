@@ -25,13 +25,15 @@
 
 1. 在项目 /react/routes 目录右键，选择 `Generate: bzz time template`。
 2. 选择`页面`,输入页面名称，通常对应路由名。
-3. Enjoy。
+3. 根据代码中的`TODO`提示修改代码。
+4. Enjoy。
 
 ### 生成组件
 
 1. 选择目标目录，比如`compoennts`目录，选择 `Generate: bzz time template`。
 2. 选择`组件`,输入组件名称。
-3. Enjoy。
+3. 根据代码中的`TODO`提示修改代码。
+4. Enjoy。
 
 ## TODO
 

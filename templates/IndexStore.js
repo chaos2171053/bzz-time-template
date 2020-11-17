@@ -30,7 +30,8 @@ export const StoreProvider = injectIntl(
               communityId,
             }),
             []
-          )
+          ),
+        []
       );
 
       const createDataSet = useMemo(
@@ -41,7 +42,7 @@ export const StoreProvider = injectIntl(
               communityId,
             }),
             []
-          )
+          ), []
       );
 
       const value = {
