@@ -3,18 +3,19 @@ import * as fse from "fs-extra";
 import message from "./utils/message";
 import  GenerateComponent from './generator/generateComponent';
 import GeneratePage from './generator/generatePage';
+import generatePageByForm from './generator/generatePageByForm'
 
 async function main(uri: vscode.Uri) {
   const { path } = uri;
 
-  console.log("Work path :", path);
 
   if (!uri || !path || !fse.statSync(path).isDirectory()) {
     message("error", "请选择要生成模版的目录");
     return false;
   }
 
-  const templateType = await vscode.window.showQuickPick(["页面", "组件"], {
+  const quickPick = ["组件","简化版页面","表单配置页面" ];
+  const templateType = await vscode.window.showQuickPick(quickPick, {
     placeHolder: "请选择模版类型",
   });
 
@@ -38,6 +39,9 @@ async function main(uri: vscode.Uri) {
       new GenerateComponent(uri.path,componentName);
 
       break;
+      case "表单配置页面":
+         new generatePageByForm(uri);
+        break;
     default:
       break;
   }
