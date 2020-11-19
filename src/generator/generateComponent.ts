@@ -1,5 +1,5 @@
 import firstCharUpper from "../utils/firstCharUpper";
-import createDir from './createDir';
+import createDirectory from './createDirectory';
 import CreateTemplate from './createTemplate';
 /**
  * 生成 组件名目录/组件名.js + 组件名.less
@@ -20,7 +20,7 @@ class GenerateComponent {
     let newComponentStyle = null;
 
     try {
-      const componentDir = createDir(this.outputPath, this.componentName);
+      const componentDir = createDirectory(this.outputPath, this.componentName);
       newComponent = new CreateTemplate({
         filePath:componentDir,
         fileName:`${this.componentName}.js`,

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import message from "../utils/message";
-import createDir from "./createDir";
+import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 class GeneratePage {
   pageName: string = "";
@@ -28,7 +28,7 @@ class GeneratePage {
     console.log('Generate Page name: ', this.pageName);
     try {
       // create page directory
-      const pageDir = createDir(pagePath, pageName);
+      const pageDir = createDirectory(pagePath, pageName);
 
       // create page route index.js
       new CreateTemplate({
@@ -38,7 +38,7 @@ class GeneratePage {
       });
 
       // create list directory in page directory
-      const listDir = createDir(pageDir, 'list');
+      const listDir = createDirectory(pageDir, 'list');
 
       // create page`s StoreProvider
       new CreateTemplate({
@@ -54,7 +54,7 @@ class GeneratePage {
         templateName:'ListComponent.js',
       });
 
-      const styleDir = createDir(listDir, 'styles');
+      const styleDir = createDirectory(listDir, 'styles');
 
       // create styles/List.less
       new CreateTemplate({
@@ -64,10 +64,10 @@ class GeneratePage {
       });
 
       // create components directory
-      const componentsDir = createDir(listDir, 'components');
+      const componentsDir = createDirectory(listDir, 'components');
 
       // create modal directory
-      const modalDir = createDir(listDir, 'modal');
+      const modalDir = createDirectory(listDir, 'modal');
       // create modal comonent
       new CreateTemplate({
         filePath:modalDir,
@@ -78,7 +78,7 @@ class GeneratePage {
 
 
       // create stores directory
-      const storesDir = createDir(listDir, 'stores');
+      const storesDir = createDirectory(listDir, 'stores');
 
       // create add modal`s dataset
       new CreateTemplate({
