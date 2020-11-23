@@ -2,6 +2,10 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
+## [2.0.0] - 2020-11-23
+
+- 修复读取模版失败。
+
 ## [1.2.1] - 2020-11-17
 
 - 列表页面样式修改。

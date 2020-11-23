@@ -1,6 +1,6 @@
 import * as fse from "fs-extra";
 
-export default function createDirectory(path:string, dirName: string): string {
+export default function createDirectory(path: string, dirName: string): string {
   try {
     const targetPath = `${path}/${dirName}`;
     fse.mkdirsSync(targetPath);

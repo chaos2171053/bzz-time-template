@@ -181,6 +181,7 @@ function ListView(props) {
             queryFieldsLimit={5}
             className="timework-table"
             key="timework-talbe"
+            selectionMode="none"
           >
             <Column
               name="rowNum"
@@ -188,6 +189,7 @@ function ListView(props) {
               lock="left"
               align="center"
               key="rowNum"
+              width={50}
             />
             <Column
               header="操作"

@@ -2,12 +2,12 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "es6",
-		"outDir": "out",
+		"outDir": "out/ext-src",
 		"lib": [
 			"es6"
 		],
 		"sourceMap": true,
-		"rootDir": "ext-src",
+		"rootDir": "./ext-src",
 		"strict": true   /* enable all strict type-checking options */
 		/* Additional Checks */
 		// "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
@@ -16,6 +16,8 @@
 	},
 	"exclude": [
 		"node_modules",
-		".vscode-test"
+		".vscode-test",
+		"webview-react",
+		"ext-src/test"
 	]
 }
