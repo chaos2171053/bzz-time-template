@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
 import { Form, Input, Collapse } from "antd";
 
 const { Panel } = Collapse;
 
-
 function DirectoryForm() {
   return (
     <>
-    <Collapse defaultActiveKey={["directoryName"]}>
+      <Collapse defaultActiveKey={["directoryName"]}>
         <Panel header="目录配置" key="directoryName">
           <Form.Item
             label="目录名"
             name="directoryName"
+            style={{ width: "100%", paddingLeft: "25px", paddingRight: "25px" }}
             rules={[
               {
                 required: true,
@@ -19,12 +19,12 @@ function DirectoryForm() {
               },
             ]}
           >
-            <Input placeholder="目录名最好对应路由名"/>
+            <Input placeholder="目录名最好对应路由名" />
           </Form.Item>
         </Panel>
       </Collapse>
     </>
-  )
+  );
 }
 
-export default DirectoryForm
+export default DirectoryForm;

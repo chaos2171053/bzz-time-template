@@ -15,7 +15,11 @@ function ListForm(props: ListFormProps) {
     <>
       <Collapse defaultActiveKey={["listDataSet"]}>
         <Panel header="列表DataSet配置" key="listDataSet">
-          <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          <Space
+            direction="vertical"
+            size="large"
+            style={{ width: "100%", padding: "25px" }}
+          >
             <Card>
               <ListPage form={form} />
             </Card>
