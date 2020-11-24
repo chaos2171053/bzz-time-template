@@ -1,17 +1,11 @@
 import React from "react";
-import { Form,  Button,Space } from "antd";
-import VscodeHelper from '../utils/vscode-helper';
-import DirectoryForm from './DirectoryForm'
-import ListForm from  './ListForm';
+import { Form, Button, Space } from "antd";
+import VscodeHelper from "../utils/vscode-helper";
+import DirectoryForm from "./DirectoryForm";
+import ListForm from "./ListForm";
+import { pageDataSetInitialValues } from "../store";
 
-const vscode = new VscodeHelper()
-
-const formInitialValues = {
-  directoryName:'',// 一级目录名，同路由名
-  listDataSet:{
-    autoQuery:true, // 初始化后自动查询
-  }
-}
+const vscode = new VscodeHelper();
 
 const layout = {
   labelCol: {
@@ -33,11 +27,10 @@ const GenerateForm = () => {
   const onFinish = (values: any) => {
     console.log("Success:", values);
     vscode.postMessage({
-      command:'generatePageByForm',
-      data:values
-    })
+      command: "generatePageByForm",
+      data: values,
+    });
   };
-  
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -51,20 +44,20 @@ const GenerateForm = () => {
       {...layout}
       form={form}
       name="basic"
-      initialValues={formInitialValues}
+      initialValues={pageDataSetInitialValues}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <DirectoryForm/>
-      <ListForm/>
+      <DirectoryForm />
+      <ListForm form={form} />
       <Form.Item {...tailLayout}>
         <Space>
-        <Button htmlType="button" onClick={onReset}>
-          重置
-        </Button>
-        <Button type="primary" htmlType="submit">
-          生成
-        </Button>
+          <Button htmlType="button" onClick={onReset}>
+            重置
+          </Button>
+          <Button type="primary" htmlType="submit">
+            生成
+          </Button>
         </Space>
       </Form.Item>
     </Form>

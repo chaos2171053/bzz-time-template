@@ -1,0 +1,96 @@
+import React, { useState } from "react";
+import { Form, Radio, InputNumber, Select } from "antd";
+import { RadioChangeEvent } from "antd/lib/radio/interface";
+import { FormInstance } from "antd/lib/form/hooks/useForm";
+
+const { Option } = Select;
+
+interface ListPageProps {
+  form: FormInstance;
+}
+
+function ListPage(props: ListPageProps) {
+  const { form } = props;
+  const [paging, setPaging] = useState(true);
+  const onPagingChange = (e: RadioChangeEvent) => {
+    const value = e?.target?.value;
+    form.setFieldsValue({
+      listDataSet: {
+        pageSize: 10,
+      },
+    });
+    if (value) {
+      setPaging(true);
+    } else {
+      setPaging(false);
+    }
+  };
+  return (
+    <>
+      <Form.Item
+        label="初始化后自动查询"
+        name={["listDataSet", "autoQuery"]}
+        rules={[
+          {
+            required: true,
+            message: "请选择 autoQuery",
+          },
+        ]}
+      >
+        <Radio.Group>
+          <Radio value={true}>是</Radio>
+          <Radio value={false}>否</Radio>
+        </Radio.Group>
+      </Form.Item>
+      <Form.Item
+        label="是否分页"
+        name={["listDataSet", "paging"]}
+        rules={[
+          {
+            required: true,
+            message: "请选择 paging",
+          },
+        ]}
+      >
+        <Radio.Group onChange={onPagingChange}>
+          <Radio value={true}>是</Radio>
+          <Radio value={false}>否</Radio>
+        </Radio.Group>
+      </Form.Item>
+      {paging ? (
+        <>
+          <Form.Item
+            label="每页数据条数"
+            name={["listDataSet", "pageSize"]}
+            rules={[
+              {
+                required: paging,
+                message: "请输入 pageSize",
+              },
+            ]}
+          >
+            <InputNumber min={1} />
+          </Form.Item>
+        </>
+      ) : null}
+      <Form.Item
+        label="选择模式"
+        name={["listDataSet", "selection"]}
+        rules={[
+          {
+            required: true,
+            message: "请选择 selection",
+          },
+        ]}
+      >
+        <Select>
+          <Option value="none">无</Option>
+          <Option value="single">单选</Option>
+          <Option value="multiple">多选</Option>
+        </Select>
+      </Form.Item>
+    </>
+  );
+}
+
+export default ListPage;
