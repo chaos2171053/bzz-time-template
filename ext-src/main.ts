@@ -13,8 +13,7 @@ async function main(uri: vscode.Uri, context: vscode.ExtensionContext) {
   }
 
   // 生成模版的方式/类型
-  // const quickPick = ["组件", "简化版页面", "通过表单配置页面"];
-  const quickPick = ["组件", "简化版页面"];
+  const quickPick = ["组件", "简化版页面", "通过表单配置页面"];
 
   const templateType = await vscode.window.showQuickPick(quickPick, {
     placeHolder: "请选择模版类型",
@@ -48,9 +47,12 @@ async function main(uri: vscode.Uri, context: vscode.ExtensionContext) {
         extensionPath,
       });
       break;
-    // case "通过表单配置页面":
-    //   new generatePageByForm(uri);
-    //   break;
+    case "通过表单配置页面":
+      new generatePageByForm({
+        outputPath: uri.path,
+        extensionPath,
+      });
+      break;
     default:
       break;
   }

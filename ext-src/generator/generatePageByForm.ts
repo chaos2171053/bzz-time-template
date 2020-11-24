@@ -1,18 +1,26 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fse from "fs-extra";
+import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
-let currentPanel: vscode.WebviewPanel | undefined = undefined;
+
+interface GeneratePageByFormProps {
+  outputPath: string;
+  extensionPath: string;
+}
+
 class GeneratePageByForm {
   // private readonly _panel: vscode.WebviewPanel;
-  // private readonly _extensionPath: string;
+  // private readonly extensionPath: string;
   private _disposables: vscode.Disposable[] = [];
-  private _uri: vscode.Uri;
-  private _extensionPath: string;
+  private outputPath: string;
+  private readonly extensionPath: string;
+  private static currentPanel: vscode.WebviewPanel | undefined = undefined;
+  private static readonly webviewBuildPath = "webview-react/build";
 
-  public constructor(uri: vscode.Uri) {
-    this._uri = uri;
-    this._extensionPath = uri.path;
+  public constructor({ outputPath, extensionPath }: GeneratePageByFormProps) {
+    this.outputPath = outputPath;
+    this.extensionPath = extensionPath;
     this.init();
   }
 
@@ -25,88 +33,96 @@ class GeneratePageByForm {
       ? vscode.window.activeTextEditor.viewColumn
       : undefined;
 
+    const extensionPath = this.extensionPath;
+
     // // 确保只有一个 webview
-    if (currentPanel) {
-      currentPanel.reveal(columnToShowIn);
+    if (GeneratePageByForm.currentPanel) {
+      GeneratePageByForm.currentPanel.reveal(columnToShowIn);
       return;
     }
 
-    // this._extensionPath = extensionPath;
+    // this.extensionPath = extensionPath;
 
-    currentPanel = vscode.window.createWebviewPanel(
+    GeneratePageByForm.currentPanel = vscode.window.createWebviewPanel(
+      "GeneratePageByForm",
       "表单配置页面",
-      "表单配置页面6",
       columnToShowIn ? columnToShowIn : vscode.ViewColumn.One,
       {
         enableScripts: true,
-        // And restric the webview to only loading content from our extension's `media` directory.
-        // localResourceRoots: [
-        //    vscode.Uri.file(path.join(__dirname, '../../webview-react/build'))
-        // ]
+        // only load webview-react/build`s content
+        localResourceRoots: [
+          vscode.Uri.file(
+            path.join(extensionPath, GeneratePageByForm.webviewBuildPath)
+          ),
+        ],
       }
     );
-    // path.join(__dirname, `../../templates/${templateName}`)
-    console.log("__dirname :", __dirname);
-    const templateName = path.join(__dirname, `./templates/${"IndexStore.js"}`);
-    const templateContent = await fse
-      .readFileSync(templateName, "utf8")
-      .toString();
-    console.log("templateContent: ", templateContent);
-    // const content = await fse.readFileSync(path.join(__dirname, '../../webview-react/build/index.html'),'utf8').toString();
-    // console.log('conent===',content);
-    // currentPanel.webview.html = content;
-    // currentPanel.onDidDispose(
-    // 	()async  => {
-    // 		currentPanel = undefined;
-    // 	},
-    // 	null,
-    // 	[]
-    // );
+
+    // insert html content into webview
+    GeneratePageByForm.currentPanel.webview.html = await this.getHtmlForWebview();
+
+    GeneratePageByForm.currentPanel.onDidDispose(
+      async () => {
+        GeneratePageByForm.currentPanel = undefined;
+      },
+      null,
+      []
+    );
   }
-  private async _getHtmlForWebview() {
-    // const manifest = require(path.join(__dirname, '../../webview-react/build', 'asset-manifest.json'));
-    // const mainScript = manifest['main.js'];
-    // const mainStyle = manifest['main.css'];
+  private async getHtmlForWebview() {
+    const extensionPath = this.extensionPath;
 
-    // const scriptPathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'build', mainScript));
-    // const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
-    // const stylePathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'build', mainStyle));
-    // const styleUri = stylePathOnDisk.with({ scheme: 'vscode-resource' });
+    const webviewBuildPath = GeneratePageByForm.webviewBuildPath;
 
-    // // Use a nonce to whitelist which scripts can be run
-    // const nonce = getNonce();
+    let htmlContent = await readFileSync(
+      path.join(extensionPath, `${webviewBuildPath}/index.html`),
+      "utf8"
+    ).toString();
 
-    // return `<!DOCTYPE html>
-    // 	<html lang="en">
-    // 	<head>
-    // 		<meta charset="utf-8">
-    // 		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    // 		<meta name="theme-color" content="#000000">
-    // 		<title>React App</title>
-    // 		<link rel="stylesheet" type="text/css" href="${styleUri}">
-    // 		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: https:; script-src 'nonce-${nonce}';style-src vscode-resource: 'unsafe-inline' http: https: data:;">
-    // 		<base href="${vscode.Uri.file(path.join(this._extensionPath, 'build')).with({ scheme: 'vscode-resource' })}/">
-    // 	</head>
+    const $ = cheerio.load(htmlContent, { xmlMode: false });
 
-    // 	<body>
-    // 		<noscript>You need to enable JavaScript to run this app.</noscript>
-    // 		<div id="root"></div>
+    // replace manifest
+    $('link[rel="manifest"]')
+      .toArray()
+      .forEach((item) => {
+        const manifestScr = $(item).attr("href") || "";
 
-    // 		<script nonce="${nonce}" src="${scriptUri}"></script>
-    // 	</body>
-    // 	</html>`;
+        const manifesUri = vscode.Uri.file(
+          path.join(extensionPath, webviewBuildPath, manifestScr)
+        ).with({ scheme: "vscode-resource" });
 
-    let htmlContnt = "";
-    try {
-      htmlContnt = await readFileSync(
-        path.join(__dirname, "../../webview-react/build/index.html"),
-        "utf8"
-      ).toString();
-    } catch (error) {
-      throw new Error(error);
-    }
-    console.log("htmlContnt: ", htmlContnt);
-    return htmlContnt;
+        $(item).attr("href", `${manifesUri}`);
+      });
+
+    // replace script src
+    $("script[src]")
+      .toArray()
+      .forEach((item) => {
+        const scriptScr = $(item).attr("src") || "";
+
+        const scriptUri = vscode.Uri.file(
+          path.join(extensionPath, webviewBuildPath, scriptScr)
+        ).with({ scheme: "vscode-resource" });
+
+        $(item).attr("src", `${scriptUri}`);
+      });
+    // replace style href
+    $('link[rel="stylesheet"]')
+      .toArray()
+      .forEach((item) => {
+        const styleLink = $(item).attr("href") || "";
+        const styleUri = vscode.Uri.file(
+          path.join(extensionPath, webviewBuildPath, styleLink)
+        ).with({ scheme: "vscode-resource" });
+
+        $(item).attr("href", `${styleUri}`);
+      });
+
+    htmlContent = $.html();
+
+    console.log(htmlContent);
+
+    return htmlContent;
   }
 }
 
