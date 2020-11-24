@@ -50,7 +50,7 @@ async function main(uri: vscode.Uri, context: vscode.ExtensionContext) {
     case "通过表单配置页面":
       new generatePageByForm({
         outputPath: uri.path,
-        extensionPath,
+        context,
       });
       break;
     default:

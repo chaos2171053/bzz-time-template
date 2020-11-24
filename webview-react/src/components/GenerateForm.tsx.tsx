@@ -1,7 +1,9 @@
 import React from "react";
 import { Form,  Button } from "antd";
 import DirectoryForm from './DirectoryForm'
+import VscodeHelper from '../utils/vscode-helper';
 
+const vscode = new VscodeHelper()
 
 const layout = {
   labelCol: {
@@ -21,6 +23,10 @@ const tailLayout = {
 const GenerateForm = () => {
   const onFinish = (values: any) => {
     console.log("Success:", values);
+    vscode.postMessage({
+      command:'generatePageByForm',
+      data:values
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {

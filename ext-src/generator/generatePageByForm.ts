@@ -1,12 +1,11 @@
 import * as vscode from "vscode";
 import * as path from "path";
-import * as fse from "fs-extra";
 import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
 
 interface GeneratePageByFormProps {
   outputPath: string;
-  extensionPath: string;
+  context: vscode.ExtensionContext;
 }
 
 class GeneratePageByForm {
@@ -14,10 +13,12 @@ class GeneratePageByForm {
   private readonly extensionPath: string;
   private static currentPanel: vscode.WebviewPanel | undefined = undefined;
   private static readonly webviewBuildPath = "webview-react/build";
+  private static context: vscode.ExtensionContext;
 
-  public constructor({ outputPath, extensionPath }: GeneratePageByFormProps) {
+  public constructor({ outputPath, context }: GeneratePageByFormProps) {
     this.outputPath = outputPath;
-    this.extensionPath = extensionPath;
+    this.extensionPath = context.extensionPath;
+    GeneratePageByForm.context = context;
     this.init();
   }
 
@@ -31,6 +32,8 @@ class GeneratePageByForm {
       : undefined;
 
     const extensionPath = this.extensionPath;
+
+    const context = GeneratePageByForm.context;
 
     // // make sure only one webview
     if (GeneratePageByForm.currentPanel) {
@@ -66,7 +69,24 @@ class GeneratePageByForm {
       null,
       []
     );
+
+    // get message from webview
+    GeneratePageByForm.currentPanel.webview.onDidReceiveMessage(
+      (message) => {
+        console.log("get message from webview", message);
+        switch (message.command) {
+          case "generatePageByForm":
+            vscode.window.showErrorMessage(message.data);
+            return;
+          default:
+            return;
+        }
+      },
+      undefined,
+      context.subscriptions
+    );
   }
+
   private async getHtmlForWebview() {
     const extensionPath = this.extensionPath;
 
@@ -104,6 +124,7 @@ class GeneratePageByForm {
 
         $(item).attr("src", `${scriptUri}`);
       });
+
     // replace style href
     $('link[rel="stylesheet"]')
       .toArray()
@@ -117,8 +138,6 @@ class GeneratePageByForm {
       });
 
     htmlContent = $.html();
-
-    console.log(htmlContent);
 
     return htmlContent;
   }
