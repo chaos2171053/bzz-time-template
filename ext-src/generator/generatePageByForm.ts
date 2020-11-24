@@ -10,9 +10,6 @@ interface GeneratePageByFormProps {
 }
 
 class GeneratePageByForm {
-  // private readonly _panel: vscode.WebviewPanel;
-  // private readonly extensionPath: string;
-  private _disposables: vscode.Disposable[] = [];
   private outputPath: string;
   private readonly extensionPath: string;
   private static currentPanel: vscode.WebviewPanel | undefined = undefined;
@@ -35,7 +32,7 @@ class GeneratePageByForm {
 
     const extensionPath = this.extensionPath;
 
-    // // 确保只有一个 webview
+    // // make sure only one webview
     if (GeneratePageByForm.currentPanel) {
       GeneratePageByForm.currentPanel.reveal(columnToShowIn);
       return;
@@ -49,6 +46,7 @@ class GeneratePageByForm {
       columnToShowIn ? columnToShowIn : vscode.ViewColumn.One,
       {
         enableScripts: true,
+        retainContextWhenHidden: true,
         // only load webview-react/build`s content
         localResourceRoots: [
           vscode.Uri.file(
@@ -124,16 +122,6 @@ class GeneratePageByForm {
 
     return htmlContent;
   }
-}
-
-function getNonce() {
-  let text = "";
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (let i = 0; i < 32; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
 }
 
 export default GeneratePageByForm;
