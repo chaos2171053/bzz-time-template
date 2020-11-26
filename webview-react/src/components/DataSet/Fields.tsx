@@ -49,8 +49,22 @@ function Fields(props: FieldsProps) {
     //     fields: [...fields],
     //   },
     // });
+    // TODO: bug 删除成功后，生成的数据还包含删除的数据。
     remove(index);
     console.log(form.getFieldValue(DataSetName));
+  };
+
+  const onFieldNameChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const fields = [...form.getFieldValue(DataSetName).fields];
+    fields[index].key = key + e.target.value;
+    form.setFieldsValue({
+      [DataSetName]: {
+        fields: [...fields],
+      },
+    });
   };
 
   return (
@@ -78,7 +92,11 @@ function Fields(props: FieldsProps) {
                         label="字段名 name"
                         rules={[{ required: true, message: "请输入字段名" }]}
                       >
-                        <Input />
+                        <Input
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) => onFieldNameChange(event, index)}
+                        />
                       </Form.Item>
                       <Form.Item
                         {...field}
