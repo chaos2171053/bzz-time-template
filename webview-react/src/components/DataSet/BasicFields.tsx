@@ -10,9 +10,7 @@ const { Option } = Select;
  */
 
 function BasicFields(props: FieldCommonProps) {
-  const { form, dataSet } = props;
-
-  const DataSetName = dataSet.name;
+  const { form, DataSetName } = props;
 
   const [paging, setPaging] = useState(true);
 

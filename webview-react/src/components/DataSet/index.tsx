@@ -3,17 +3,23 @@ import React from "react";
 import BasicFields from "./BasicFields";
 import Fields from "./Fields";
 import { FieldCommonProps } from "./interface";
+import QueryFields from "./QueryFields";
+import "./index.less";
 
 interface BzzDataSetProps extends FieldCommonProps {}
 
 function BzzDataSet(props: BzzDataSetProps) {
-  const { form } = props;
   return (
     <>
       <Card>
-        <BasicFields form={form} dataSet={{ name: props.dataSet.name }} />
+        <BasicFields {...props} />
       </Card>
-      <Fields form={form} dataSet={{ name: props.dataSet.name }} />
+      <Card className="card-wrapper">
+        <Fields {...props} />
+      </Card>
+      <Card className="card-wrapper">
+        <QueryFields {...props} />
+      </Card>
     </>
   );
 }

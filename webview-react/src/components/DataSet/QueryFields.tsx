@@ -6,27 +6,24 @@ import "./Fields.less";
 
 const { Option } = Select;
 
-const FieldTypes = Object.values(FieldType);
-
 const key = new Date().valueOf();
 
-interface FieldsProps extends FieldCommonProps {}
+const FieldTypes = Object.values(FieldType);
 
-/**
- * DataSet 的 fields 字段
- */
-function Fields(props: FieldsProps) {
-  const { form, DataSetName } = props;
+interface QueryFieldsProps extends FieldCommonProps {}
+
+export default function QueryFields(props: QueryFieldsProps) {
+  const { DataSetName, form } = props;
 
   const onRemoveField = (index: number, remove: Function) => {
-    // const fields = [...form.getFieldValue(props. dataSet.name).fields];
+    // const queryFields = [...form.getFieldValue(props. dataSet.name).queryFields];
 
-    // fields.splice(index, 1);
-    // console.log("fields: ", fields);
+    // queryFields.splice(index, 1);
+    // console.log("queryFields: ", queryFields);
 
     // form.setFieldsValue({
     //   [props. dataSet.name]: {
-    //     fields: [...fields],
+    //     queryFields: [...queryFields],
     //   },
     // });
     // TODO: bug 删除成功后，生成的数据还包含删除的数据。
@@ -38,18 +35,18 @@ function Fields(props: FieldsProps) {
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const fields = [...form.getFieldValue(DataSetName).fields];
-    fields[index].key = key + e.target.value;
+    const queryFields = [...form.getFieldValue(DataSetName).queryFields];
+    queryFields[index].key = key + e.target.value;
     form.setFieldsValue({
       [DataSetName]: {
-        fields: [...fields],
+        queryFields: [...queryFields],
       },
     });
   };
 
   return (
     <>
-      <Form.List name={[DataSetName, "fields"]}>
+      <Form.List name={[DataSetName, "queryFields"]}>
         {(fields, { add, remove }) => (
           <>
             <Space direction="vertical" style={{ width: "100%" }}>
@@ -131,7 +128,7 @@ function Fields(props: FieldsProps) {
                 icon={<PlusOutlined />}
                 className="form-btn"
               >
-                添加字段
+                添加查询字段
               </Button>
             </Form.Item>
           </>
@@ -140,5 +137,3 @@ function Fields(props: FieldsProps) {
     </>
   );
 }
-
-export default Fields;

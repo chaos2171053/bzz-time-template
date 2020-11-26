@@ -2,6 +2,7 @@ import React from "react";
 import { Collapse, Space } from "antd";
 import { FormInstance } from "antd/lib/form/hooks/useForm";
 import BzzDataSet from "../DataSet";
+import "./index.less";
 
 const { Panel } = Collapse;
 interface ListFormProps {
@@ -15,12 +16,8 @@ function ListForm(props: ListFormProps) {
     <>
       <Collapse defaultActiveKey={[DataSetName]}>
         <Panel header="列表DataSet配置" key={DataSetName}>
-          <Space
-            direction="vertical"
-            size="large"
-            style={{ width: "100%", padding: "25px" }}
-          >
-            <BzzDataSet form={form} dataSet={{ name: DataSetName }} />
+          <Space direction="vertical" size="large" className="space-wrapper">
+            <BzzDataSet form={form} DataSetName={DataSetName} />
           </Space>
         </Panel>
       </Collapse>
