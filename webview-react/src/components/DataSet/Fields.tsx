@@ -1,19 +1,32 @@
 import React from "react";
 import { Form, Input, Button, Space, Card } from "antd";
 import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { FieldCommonProps } from "./interface";
 import "./Fields.less";
 
 const key = new Date().valueOf();
 
-interface FieldsProps {
-  DataSetName: string;
-}
+interface FieldsProps extends FieldCommonProps {}
 
 /**
  * DataSet 的 fields 字段
  */
 function Fields(props: FieldsProps) {
-  const { DataSetName } = props;
+  const { dataSet, form } = props;
+  const DataSetName = dataSet.name || "";
+
+  const onRemoveField = (index: number) => {
+    const fields = form.getFieldValue(DataSetName).fields;
+
+    fields.splice(index, 1);
+
+    form.setFieldsValue({
+      [DataSetName]: {
+        fields,
+      },
+    });
+  };
+
   return (
     <>
       <Form.List name={[DataSetName, "fields"]}>
@@ -34,7 +47,7 @@ function Fields(props: FieldsProps) {
                     </Form.Item>
                   </Card>
                   <CloseCircleOutlined
-                    onClick={() => remove(field.name)}
+                    onClick={() => onRemoveField(index)}
                     className="fields-wrapper__minus"
                   />
                 </div>

@@ -24,7 +24,7 @@ function ListForm(props: ListFormProps) {
             <Card>
               <ListPageDataSet form={form} dataSet={{ name: DataSetName }} />
             </Card>
-            <Fields DataSetName={DataSetName} />
+            <Fields form={form} dataSet={{ name: DataSetName }} />
           </Space>
         </Panel>
       </Collapse>
