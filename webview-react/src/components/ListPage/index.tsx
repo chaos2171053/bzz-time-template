@@ -1,8 +1,7 @@
 import React from "react";
-import { Collapse, Space, Card } from "antd";
+import { Collapse, Space } from "antd";
 import { FormInstance } from "antd/lib/form/hooks/useForm";
-import ListPageDataSet from "../DataSet";
-import Fields from "../DataSet/Fields";
+import BzzDataSet from "../DataSet";
 
 const { Panel } = Collapse;
 interface ListFormProps {
@@ -21,10 +20,7 @@ function ListForm(props: ListFormProps) {
             size="large"
             style={{ width: "100%", padding: "25px" }}
           >
-            <Card>
-              <ListPageDataSet form={form} dataSet={{ name: DataSetName }} />
-            </Card>
-            <Fields form={form} dataSet={{ name: DataSetName }} />
+            <BzzDataSet form={form} dataSet={{ name: DataSetName }} />
           </Space>
         </Panel>
       </Collapse>

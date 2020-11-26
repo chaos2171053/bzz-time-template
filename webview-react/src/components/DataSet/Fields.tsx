@@ -38,18 +38,19 @@ function Fields(props: FieldsProps) {
   const { dataSet, form } = props;
   const DataSetName = dataSet.name || "";
 
-  const onRemoveField = (index: number, remove: Function, fieldName: any) => {
-    const fields = [...form.getFieldValue(DataSetName).fields];
+  const onRemoveField = (index: number, remove: Function) => {
+    // const fields = [...form.getFieldValue(DataSetName).fields];
 
-    fields.splice(index, 1);
+    // fields.splice(index, 1);
+    // console.log("fields: ", fields);
 
-    form.setFieldsValue({
-      [DataSetName]: {
-        fields: [...fields],
-      },
-    });
+    // form.setFieldsValue({
+    //   [DataSetName]: {
+    //     fields: [...fields],
+    //   },
+    // });
+    remove(index);
     console.log(form.getFieldValue(DataSetName));
-    remove(fieldName);
   };
 
   return (
@@ -117,9 +118,7 @@ function Fields(props: FieldsProps) {
                       </Form.Item>
                     </Card>
                     <CloseCircleOutlined
-                      onClick={() =>
-                        onRemoveField(index, remove, baseFieldName)
-                      }
+                      onClick={() => onRemoveField(index, remove)}
                       className="fields-wrapper__minus"
                     />
                   </div>

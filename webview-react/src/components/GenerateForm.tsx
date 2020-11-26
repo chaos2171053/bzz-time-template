@@ -44,7 +44,7 @@ const GenerateForm = () => {
       {...layout}
       form={form}
       name="basic"
-      initialValues={pageDataSetInitialValues}
+      initialValues={{ ...pageDataSetInitialValues }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
