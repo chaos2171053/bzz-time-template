@@ -3,7 +3,10 @@ import { Form, Button, Space } from "antd";
 import VscodeHelper from "../utils/vscode-helper";
 import DirectoryForm from "./DirectoryForm";
 import ListForm from "./ListPage";
-import { pageDataSetInitialValues } from "../store";
+import {
+  pageDataSetInitialValues,
+  pageDataSetInitialValuesProps,
+} from "../store";
 
 const vscode = new VscodeHelper();
 
@@ -22,9 +25,23 @@ const tailLayout = {
   },
 };
 
+const transformFormValus = (values: pageDataSetInitialValuesProps) => {
+  // filter undefined fields made by ant design`s bug?
+  if (values.listDataSet) {
+    values.listDataSet.fields = values.listDataSet.fields.filter(
+      (field) => field.name
+    );
+    values.listDataSet.queryFields = values.listDataSet.queryFields.filter(
+      (field) => field.name
+    );
+  }
+  return values;
+};
+
 const GenerateForm = () => {
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
+    values = transformFormValus(values);
     console.log("Success:", values);
     vscode.postMessage({
       command: "generatePageByForm",

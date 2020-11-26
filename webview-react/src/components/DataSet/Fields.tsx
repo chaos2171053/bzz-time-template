@@ -21,19 +21,8 @@ function Fields(props: FieldsProps) {
   const { form, DataSetType, DataSetFieldName } = props;
 
   const onRemoveField = (index: number, remove: Function) => {
-    // const fields = [...form.getFieldValue(props. dataSet.name).fields];
-
-    // fields.splice(index, 1);
-    // console.log("fields: ", fields);
-
-    // form.setFieldsValue({
-    //   [props. dataSet.name]: {
-    //     fields: [...fields],
-    //   },
-    // });
     // TODO: bug 删除成功后，生成的数据还包含删除的数据。
     remove(index);
-    console.log(form.getFieldValue(DataSetType));
   };
 
   const onFieldNameChange = (
