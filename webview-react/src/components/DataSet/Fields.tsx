@@ -1,17 +1,27 @@
 import React from "react";
 import { Form, Input, Button, Space, Card } from "antd";
 import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import "./ListFields.less";
+import "./Fields.less";
 
-function ListFields() {
+const key = new Date().valueOf();
+
+interface FieldsProps {
+  DataSetName: string;
+}
+
+/**
+ * DataSet 的 fields 字段
+ */
+function Fields(props: FieldsProps) {
+  const { DataSetName } = props;
   return (
     <>
-      <Form.List name={["listDataSet", "fields"]}>
+      <Form.List name={[DataSetName, "fields"]}>
         {(fields, { add, remove }) => (
           <>
             <Space direction="vertical" style={{ width: "100%" }}>
-              {fields.map((field) => (
-                <div className="fields-wrapper">
+              {fields.map((field, index) => (
+                <div className="fields-wrapper" key={key + index}>
                   <Card style={{ width: "100%" }}>
                     <Form.Item
                       {...field}
@@ -25,18 +35,18 @@ function ListFields() {
                   </Card>
                   <CloseCircleOutlined
                     onClick={() => remove(field.name)}
-                    className="fields-wrapper--minus"
+                    className="fields-wrapper__minus"
                   />
                 </div>
               ))}
             </Space>
-            <Form.Item className="form--btn__wrapper">
+            <Form.Item className="form-btn__wrapper">
               <Button
                 type="dashed"
                 onClick={() => add()}
                 block
                 icon={<PlusOutlined />}
-                className="form--btn"
+                className="form-btn"
               >
                 添加列表字段
               </Button>
@@ -48,4 +58,4 @@ function ListFields() {
   );
 }
 
-export default ListFields;
+export default Fields;

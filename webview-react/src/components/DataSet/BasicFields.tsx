@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Form, Radio, InputNumber, Select } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio/interface";
-import { FormInstance } from "antd/lib/form/hooks/useForm";
+import { FieldCommonProps } from "./interface";
 
 const { Option } = Select;
 
-interface ListPageProps {
-  form: FormInstance;
-}
+/**
+ * DataSet 的 基本字段
+ */
 
-function ListPage(props: ListPageProps) {
-  const { form } = props;
+function BasicFields(props: FieldCommonProps) {
+  const { form, dataSet } = props;
+
+  const DataSetName = dataSet.name;
+
   const [paging, setPaging] = useState(true);
+
   const onPagingChange = (e: RadioChangeEvent) => {
     const value = e?.target?.value;
     form.setFieldsValue({
@@ -25,11 +29,12 @@ function ListPage(props: ListPageProps) {
       setPaging(false);
     }
   };
+
   return (
     <>
       <Form.Item
         label="初始化后自动查询"
-        name={["listDataSet", "autoQuery"]}
+        name={[DataSetName, "autoQuery"]}
         rules={[
           {
             required: true,
@@ -44,7 +49,7 @@ function ListPage(props: ListPageProps) {
       </Form.Item>
       <Form.Item
         label="是否分页"
-        name={["listDataSet", "paging"]}
+        name={[DataSetName, "paging"]}
         rules={[
           {
             required: true,
@@ -61,7 +66,7 @@ function ListPage(props: ListPageProps) {
         <>
           <Form.Item
             label="每页数据条数"
-            name={["listDataSet", "pageSize"]}
+            name={[DataSetName, "pageSize"]}
             rules={[
               {
                 required: paging,
@@ -75,7 +80,7 @@ function ListPage(props: ListPageProps) {
       ) : null}
       <Form.Item
         label="选择模式"
-        name={["listDataSet", "selection"]}
+        name={[DataSetName, "selection"]}
         rules={[
           {
             required: true,
@@ -93,4 +98,4 @@ function ListPage(props: ListPageProps) {
   );
 }
 
-export default ListPage;
+export default BasicFields;

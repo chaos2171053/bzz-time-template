@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button, Space } from "antd";
 import VscodeHelper from "../utils/vscode-helper";
 import DirectoryForm from "./DirectoryForm";
-import ListForm from "./ListForm";
+import ListForm from "./ListPage";
 import { pageDataSetInitialValues } from "../store";
 
 const vscode = new VscodeHelper();
