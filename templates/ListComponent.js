@@ -38,7 +38,7 @@ function ListView(props) {
   const context = useContext(Store);
   const {
     organizationId,
-    AppState,
+    communityId,
     listDataSet,
     // TODO: 建议把 createDataSet 名字改得更详细易懂
     createDataSet,
@@ -116,7 +116,7 @@ function ListView(props) {
 
   const { refresh } = useListRefresh({
     listDataSet,
-    communityId: AppState.communityId,
+    communityId,
     organizationId,
   });
 

@@ -52,6 +52,7 @@ export const StoreProvider = injectIntl(
         organizationId,
         intlPrefix,
         listDataSet,
+        communityId,
         createDataSet,
       };
 
