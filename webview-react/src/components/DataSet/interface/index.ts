@@ -2,7 +2,7 @@ import { FormInstance } from "antd/lib/form/hooks/useForm";
 
 export interface FieldCommonProps {
   form: FormInstance;
-  DataSetName: string;
+  DataSetType: string; // DataSet 类型： 1. ListDatSet 2.ModalDataSet
 }
 
 export enum FieldType {

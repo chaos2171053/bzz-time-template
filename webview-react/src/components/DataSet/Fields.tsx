@@ -18,7 +18,7 @@ interface FieldsProps extends FieldCommonProps {
  * DataSet 的 fields 字段
  */
 function Fields(props: FieldsProps) {
-  const { form, DataSetName, DataSetFieldName } = props;
+  const { form, DataSetType, DataSetFieldName } = props;
 
   const onRemoveField = (index: number, remove: Function) => {
     // const fields = [...form.getFieldValue(props. dataSet.name).fields];
@@ -33,17 +33,17 @@ function Fields(props: FieldsProps) {
     // });
     // TODO: bug 删除成功后，生成的数据还包含删除的数据。
     remove(index);
-    console.log(form.getFieldValue(DataSetName));
+    console.log(form.getFieldValue(DataSetType));
   };
 
   const onFieldNameChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const fields = [...form.getFieldValue(DataSetName)[DataSetFieldName]];
+    const fields = [...form.getFieldValue(DataSetType)[DataSetFieldName]];
     fields[index].key = key + e.target.value;
     form.setFieldsValue({
-      [DataSetName]: {
+      [DataSetType]: {
         [DataSetFieldName]: [...fields],
       },
     });
@@ -51,7 +51,7 @@ function Fields(props: FieldsProps) {
 
   return (
     <>
-      <Form.List name={[DataSetName, DataSetFieldName]}>
+      <Form.List name={[DataSetType, DataSetFieldName]}>
         {(fields, { add, remove }) => (
           <>
             <Space direction="vertical" style={{ width: "100%" }}>

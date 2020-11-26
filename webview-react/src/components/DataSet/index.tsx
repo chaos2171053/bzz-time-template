@@ -25,6 +25,11 @@ function BzzDataSet(props: BzzDataSetProps) {
           <Fields {...props} DataSetFieldName="queryFields" />
         </Card>
       </div>
+      <div className="card-wrapper">
+        <Card title="transport 字段">
+          <Fields {...props} DataSetFieldName="transport" />
+        </Card>
+      </div>
     </>
   );
 }

@@ -11,13 +11,13 @@ interface ListFormProps {
 
 function ListForm(props: ListFormProps) {
   const { form } = props;
-  const DataSetName = "listDataSet";
+  const DataSetType = "listDataSet";
   return (
     <>
-      <Collapse defaultActiveKey={[DataSetName]}>
-        <Panel header="列表DataSet配置" key={DataSetName}>
+      <Collapse defaultActiveKey={[DataSetType]}>
+        <Panel header="列表 DataSet 配置" key={DataSetType}>
           <Space direction="vertical" size="large" className="space-wrapper">
-            <BzzDataSet form={form} DataSetName={DataSetName} />
+            <BzzDataSet form={form} DataSetType={DataSetType} />
           </Space>
         </Panel>
       </Collapse>

@@ -10,7 +10,7 @@ const { Option } = Select;
  */
 
 function BasicFields(props: FieldCommonProps) {
-  const { form, DataSetName } = props;
+  const { form, DataSetType } = props;
 
   const [paging, setPaging] = useState(true);
 
@@ -32,7 +32,7 @@ function BasicFields(props: FieldCommonProps) {
     <>
       <Form.Item
         label="初始化后自动查询"
-        name={[DataSetName, "autoQuery"]}
+        name={[DataSetType, "autoQuery"]}
         rules={[
           {
             required: true,
@@ -47,7 +47,7 @@ function BasicFields(props: FieldCommonProps) {
       </Form.Item>
       <Form.Item
         label="是否分页"
-        name={[DataSetName, "paging"]}
+        name={[DataSetType, "paging"]}
         rules={[
           {
             required: true,
@@ -64,7 +64,7 @@ function BasicFields(props: FieldCommonProps) {
         <>
           <Form.Item
             label="每页数据条数"
-            name={[DataSetName, "pageSize"]}
+            name={[DataSetType, "pageSize"]}
             rules={[
               {
                 required: paging,
@@ -78,7 +78,7 @@ function BasicFields(props: FieldCommonProps) {
       ) : null}
       <Form.Item
         label="选择模式"
-        name={[DataSetName, "selection"]}
+        name={[DataSetType, "selection"]}
         rules={[
           {
             required: true,
