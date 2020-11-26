@@ -4,6 +4,7 @@ import BasicFields from "./BasicFields";
 import Fields from "./Fields";
 import { FieldCommonProps } from "./interface";
 import "./index.less";
+import TransportFields from "./TransportFields";
 
 interface BzzDataSetProps extends FieldCommonProps {}
 
@@ -27,7 +28,7 @@ function BzzDataSet(props: BzzDataSetProps) {
       </div>
       <div className="card-wrapper">
         <Card title="transport 字段">
-          <Fields {...props} DataSetFieldName="transport" />
+          <TransportFields {...props} />
         </Card>
       </div>
     </>

@@ -1,10 +1,18 @@
-export const ListDataSetInitialValues = {
+export const fieldInitialValues = {
   autoQuery: true, // 初始化后自动查询
   paging: true, // 前端分页、后端分页还是不分页
   pageSize: 10, // 分页大小
   selection: "none", // 选择的模式
   fields: [], // 列表字段
   queryFields: [], // 查询字段
+  transport: {
+    read: {
+      url: "",
+    },
+  },
+};
+export const ListDataSetInitialValues = {
+  ...fieldInitialValues,
 };
 
 export const formDataSetInitialValues = {};
