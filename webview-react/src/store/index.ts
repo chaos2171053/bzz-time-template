@@ -4,6 +4,7 @@ export const ListDataSetInitialValues = {
   pageSize: 10, // 分页大小
   selection: "none", // 选择的模式
   fields: [], // 列表字段
+  queryFields: [], // 查询字段
 };
 
 export const formDataSetInitialValues = {};

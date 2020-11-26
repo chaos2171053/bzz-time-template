@@ -10,13 +10,15 @@ const FieldTypes = Object.values(FieldType);
 
 const key = new Date().valueOf();
 
-interface FieldsProps extends FieldCommonProps {}
+interface FieldsProps extends FieldCommonProps {
+  DataSetFieldName: string;
+}
 
 /**
  * DataSet 的 fields 字段
  */
 function Fields(props: FieldsProps) {
-  const { form, DataSetName } = props;
+  const { form, DataSetName, DataSetFieldName } = props;
 
   const onRemoveField = (index: number, remove: Function) => {
     // const fields = [...form.getFieldValue(props. dataSet.name).fields];
@@ -38,18 +40,18 @@ function Fields(props: FieldsProps) {
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const fields = [...form.getFieldValue(DataSetName).fields];
+    const fields = [...form.getFieldValue(DataSetName)[DataSetFieldName]];
     fields[index].key = key + e.target.value;
     form.setFieldsValue({
       [DataSetName]: {
-        fields: [...fields],
+        [DataSetFieldName]: [...fields],
       },
     });
   };
 
   return (
     <>
-      <Form.List name={[DataSetName, "fields"]}>
+      <Form.List name={[DataSetName, DataSetFieldName]}>
         {(fields, { add, remove }) => (
           <>
             <Space direction="vertical" style={{ width: "100%" }}>
