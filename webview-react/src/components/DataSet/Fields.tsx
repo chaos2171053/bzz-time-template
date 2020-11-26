@@ -1,8 +1,31 @@
 import React from "react";
-import { Form, Input, Button, Space, Card } from "antd";
+import { Form, Input, Button, Space, Card, Select } from "antd";
 import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { FieldCommonProps } from "./interface";
 import "./Fields.less";
+
+const { Option } = Select;
+
+enum FieldType {
+  auto = "auto",
+  boolean = "boolean",
+  number = "number",
+  currency = "currency",
+  string = "string",
+  date = "date",
+  dateTime = "dateTime",
+  week = "week",
+  month = "month",
+  year = "year",
+  time = "time",
+  object = "object",
+  intl = "intl",
+  email = "email",
+  url = "url",
+  color = "color",
+  reactNode = "reactNode",
+}
+const FieldTypes = Object.values(FieldType);
 
 const key = new Date().valueOf();
 
@@ -15,16 +38,18 @@ function Fields(props: FieldsProps) {
   const { dataSet, form } = props;
   const DataSetName = dataSet.name || "";
 
-  const onRemoveField = (index: number) => {
-    const fields = form.getFieldValue(DataSetName).fields;
+  const onRemoveField = (index: number, remove: Function, fieldName: any) => {
+    const fields = [...form.getFieldValue(DataSetName).fields];
 
     fields.splice(index, 1);
 
     form.setFieldsValue({
       [DataSetName]: {
-        fields,
+        fields: [...fields],
       },
     });
+    console.log(form.getFieldValue(DataSetName));
+    remove(fieldName);
   };
 
   return (
@@ -33,25 +58,73 @@ function Fields(props: FieldsProps) {
         {(fields, { add, remove }) => (
           <>
             <Space direction="vertical" style={{ width: "100%" }}>
-              {fields.map((field, index) => (
-                <div className="fields-wrapper" key={key + index}>
-                  <Card style={{ width: "100%" }}>
-                    <Form.Item
-                      {...field}
-                      name={[field.name, "name"]}
-                      fieldKey={[field.fieldKey, "name"]}
-                      label="字段名"
-                      rules={[{ required: true, message: "请输入字段名" }]}
-                    >
-                      <Input placeholder="字段名" />
-                    </Form.Item>
-                  </Card>
-                  <CloseCircleOutlined
-                    onClick={() => onRemoveField(index)}
-                    className="fields-wrapper__minus"
-                  />
-                </div>
-              ))}
+              {fields.map((field, index) => {
+                const baseFieldName = `${field.name}`;
+
+                const baseFieldKey = `${field.fieldKey}__${key + index}`;
+
+                return (
+                  <div
+                    className="fields-wrapper"
+                    key={key + baseFieldKey + index}
+                  >
+                    <Card style={{ width: "100%" }}>
+                      <Form.Item
+                        {...field}
+                        key={`${baseFieldKey}__name`}
+                        name={[baseFieldName, "name"]}
+                        fieldKey={[`${baseFieldKey}__name`, "name"]}
+                        label="字段名 name"
+                        rules={[{ required: true, message: "请输入字段名" }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                      <Form.Item
+                        {...field}
+                        key={`${baseFieldKey}__type`}
+                        name={[baseFieldName, "type"]}
+                        fieldKey={[`${baseFieldKey}__type`, "type"]}
+                        label="字段类型 type"
+                        rules={[
+                          {
+                            required: true,
+                            message: "请选择字段类型",
+                          },
+                        ]}
+                      >
+                        <Select>
+                          {FieldTypes.map((type, index) => (
+                            <>
+                              <Option
+                                value={type}
+                                key={baseFieldKey + type + index}
+                              >
+                                {type}
+                              </Option>
+                            </>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        {...field}
+                        key={`${baseFieldKey}__label`}
+                        name={[baseFieldName, "label"]}
+                        fieldKey={[`${baseFieldKey}__label`, "label"]}
+                        label="标签 label"
+                        rules={[{ required: true, message: "请输入标签" }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Card>
+                    <CloseCircleOutlined
+                      onClick={() =>
+                        onRemoveField(index, remove, baseFieldName)
+                      }
+                      className="fields-wrapper__minus"
+                    />
+                  </div>
+                );
+              })}
             </Space>
             <Form.Item className="form-btn__wrapper">
               <Button
