@@ -1,4 +1,5 @@
 import firstCharUpper from "../utils/firstCharUpper";
+import replaceComponentName from "../utils/replaceComponentName";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 /**
@@ -40,11 +41,7 @@ class GenerateComponent {
         filePath: componentDir,
         fileName: `${this.componentName}.js`,
         templateName: "ComponentName.js",
-        repalceContentCallback: (fileContent: any): any => {
-          const replaceContent = `${this.componentName}.js`.split(".")[0];
-          fileContent = fileContent.replace(/ComponentName/g, replaceContent);
-          return fileContent;
-        },
+        replaceContentCallback: replaceComponentName,
         extensionPath,
       });
       newComponentStyle = new CreateTemplate({

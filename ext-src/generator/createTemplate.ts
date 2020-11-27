@@ -7,7 +7,7 @@ interface Props {
   filePath: string;
   templateName: string;
   extensionPath: string;
-  repalceContentCallback?: Function; // 替换内容回调
+  replaceContentCallback?: Function; // 替换内容回调
 }
 /**
  * 生成 模板文件
@@ -17,7 +17,7 @@ export default class CreateTemplate {
   filePath: string = "";
   templateName: string = "";
   templatePath: string;
-  repalceContentCallback: Function | undefined;
+  replaceContentCallback: Function | undefined;
 
   constructor(props: Props) {
     const {
@@ -25,14 +25,14 @@ export default class CreateTemplate {
       fileName,
       templateName,
       extensionPath,
-      repalceContentCallback,
+      replaceContentCallback,
     } = props;
     this.filePath = filePath;
     this.fileName = fileName;
 
     this.templatePath = path.join(extensionPath, `/templates/${templateName}`);
 
-    this.repalceContentCallback = repalceContentCallback;
+    this.replaceContentCallback = replaceContentCallback;
 
     this.init();
   }
@@ -48,8 +48,8 @@ export default class CreateTemplate {
     } catch (error) {
       throw new Error(error);
     }
-    if (this.repalceContentCallback) {
-      fileContent = this.repalceContentCallback(fileContent);
+    if (this.replaceContentCallback) {
+      fileContent = this.replaceContentCallback(fileContent);
     }
 
     try {

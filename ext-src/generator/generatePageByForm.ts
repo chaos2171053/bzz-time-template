@@ -3,6 +3,9 @@ import * as path from "path";
 import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
 import GeneratePage from "./generatePage";
+import createDirectory from "./createDirectory";
+import CreateTemplate from "./createTemplate";
+import replaceComponentName from "../utils/replaceComponentName";
 
 interface GeneratePageByFormProps {
   uri: vscode.Uri;
@@ -92,14 +95,108 @@ class GeneratePageByForm {
 
   public async generate(data: any) {
     const { directoryName, listDataSet } = data;
+    const pageName = directoryName;
+    const pagePath = this.outputPath;
+    const extensionPath = this.extensionPath;
+
     console.log("data: ", data);
+
     try {
-      await new GeneratePage({
-        uri: this.uri,
-        pageName: directoryName,
-        extensionPath: this.extensionPath,
+      // create page directory
+      const pageDir = createDirectory(pagePath, pageName);
+
+      // create page route index.js
+      new CreateTemplate({
+        filePath: pageDir,
+        fileName: "index.js",
+        templateName: "route.js",
+        extensionPath,
       });
-    } catch (error) {}
+
+      // create list directory in page directory
+      const listDir = createDirectory(pageDir, "list");
+
+      // create page`s StoreProvider
+      new CreateTemplate({
+        filePath: listDir,
+        fileName: "index.js",
+        templateName: "PageStoreProvider.js",
+        extensionPath,
+      });
+
+      // create page`s list
+      new CreateTemplate({
+        filePath: listDir,
+        fileName: "List.js",
+        templateName: "ListComponent.js",
+        extensionPath,
+      });
+
+      const styleDir = createDirectory(listDir, "styles");
+
+      // create styles/List.less
+      new CreateTemplate({
+        filePath: styleDir,
+        fileName: "List.less",
+        templateName: "ComponentName.less",
+        extensionPath,
+      });
+
+      // create styles/CreateModal.less.less
+      new CreateTemplate({
+        filePath: styleDir,
+        fileName: "CreateModal.less",
+        templateName: "ComponentName.less",
+        extensionPath,
+      });
+
+      // create components directory
+      const componentsDir = createDirectory(listDir, "components");
+
+      // create modal directory
+      const modalDir = createDirectory(listDir, "modal");
+      // create modal comonent
+      new CreateTemplate({
+        filePath: modalDir,
+        fileName: "CreateModal.js",
+        templateName: "ComponentName.js",
+        replaceContentCallback: replaceComponentName,
+        extensionPath,
+      });
+
+      // create stores directory
+      const storesDir = createDirectory(listDir, "stores");
+
+      // create add modal`s dataset
+      new CreateTemplate({
+        filePath: storesDir,
+        fileName: "CreateDataSet.js",
+        templateName: "CreateDataSet.js",
+        extensionPath,
+      });
+
+      // create list`s index store
+      new CreateTemplate({
+        filePath: storesDir,
+        fileName: "index.js",
+        templateName: "IndexStore.js",
+        extensionPath,
+      });
+
+      // create listdataset
+      new CreateTemplate({
+        filePath: storesDir,
+        fileName: "ListDataSet.js",
+        templateName: "ListDaSet.js",
+        extensionPath,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  public replaceListDataSet(fileContent: any) {
+    return fileContent;
   }
 
   public async getHtmlForWebview() {

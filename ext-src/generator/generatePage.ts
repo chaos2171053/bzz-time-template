@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import message from "../utils/message";
+import replaceComponentName from "../utils/replaceComponentName";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 
@@ -86,11 +87,7 @@ class GeneratePage {
         filePath: modalDir,
         fileName: "CreateModal.js",
         templateName: "ComponentName.js",
-        repalceContentCallback: (fileContent: any): any => {
-          const replaceContent = `CreateModal.js`.split(".")[0];
-          fileContent = fileContent.replace(/ComponentName/g, replaceContent);
-          return fileContent;
-        },
+        replaceContentCallback: replaceComponentName,
         extensionPath,
       });
 
