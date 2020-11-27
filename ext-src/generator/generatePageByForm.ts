@@ -4,7 +4,8 @@ import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
-import replaceComponentName from "../utils/replaceComponentName";
+import replaceComponentName from "./replaceComponentName";
+import generateDataSet from "./generateDataSet";
 
 interface GeneratePageByFormProps {
   uri: vscode.Uri;
@@ -77,11 +78,13 @@ class GeneratePageByForm {
 
     // get message from webview
     GeneratePageByForm.currentPanel.webview.onDidReceiveMessage(
-      (message) => {
+      async (message) => {
         console.log("get message from webview", message);
-        switch (message.command) {
+        const { command, data } = message;
+        switch (command) {
           case "generatePageByForm":
-            this.generate(message.data);
+            const formatData = this.formatGeneratePageByForm(data);
+            this.generate(formatData);
             return;
           default:
             return;
@@ -92,13 +95,39 @@ class GeneratePageByForm {
     );
   }
 
+  public formatGeneratePageByForm(data: any) {
+    const { listDataSet } = data;
+    const { url } = listDataSet.transport.read;
+    if (url) {
+      try {
+        data.listDataSet.transport.read = new Function(
+          `queryParams`,
+          `return {
+          url: "${url}",
+          method: 'get',
+          params: {
+            ...queryParams.params,
+            organizationId,
+            communityId,
+          },
+        }`
+        );
+      } catch (error) {
+        console.log("error :", error);
+        throw new Error(error);
+      }
+    }
+    console.log("data.listDataSet.transport------", data.listDataSet.transport);
+    return data;
+  }
+
   public async generate(data: any) {
     const { directoryName, listDataSet } = data;
     const pageName = directoryName;
     const pagePath = this.outputPath;
     const extensionPath = this.extensionPath;
 
-    console.log("data: ", data);
+    console.log("generate data: ", data);
 
     try {
       // create page directory
@@ -189,7 +218,7 @@ class GeneratePageByForm {
         templateName: "ListDaSet.js",
         extensionPath,
         replaceContentCallback: (fileContent: any) => {
-          this.replaceListDataSet(fileContent, listDataSet);
+          return this.replaceListDataSet(fileContent, listDataSet);
         },
       });
     } catch (error) {
@@ -198,6 +227,8 @@ class GeneratePageByForm {
   }
 
   public replaceListDataSet(fileContent: any, listDataSet: Object) {
+    fileContent = generateDataSet(listDataSet);
+    console.log("generate DataSet :", fileContent);
     return fileContent;
   }
 

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import message from "../utils/message";
-import replaceComponentName from "../utils/replaceComponentName";
+import replaceComponentName from "./replaceComponentName";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 

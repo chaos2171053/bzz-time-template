@@ -1,5 +1,5 @@
 import firstCharUpper from "../utils/firstCharUpper";
-import replaceComponentName from "../utils/replaceComponentName";
+import replaceComponentName from "./replaceComponentName";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 /**

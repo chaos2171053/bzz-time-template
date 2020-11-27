@@ -1,6 +1,7 @@
 import * as path from "path";
 import * as fse from "fs-extra";
 import createFile from "./createFile";
+import getTemplateContent from "./getTemplateContent";
 
 interface Props {
   fileName: string;
@@ -16,8 +17,9 @@ export default class CreateTemplate {
   fileName: string = "index";
   filePath: string = "";
   templateName: string = "";
-  templatePath: string;
+  templatePath: string = "";
   replaceContentCallback: Function | undefined;
+  extensionPath: string = "";
 
   constructor(props: Props) {
     const {
@@ -30,7 +32,8 @@ export default class CreateTemplate {
     this.filePath = filePath;
     this.fileName = fileName;
 
-    this.templatePath = path.join(extensionPath, `/templates/${templateName}`);
+    this.extensionPath = extensionPath;
+    this.templateName = templateName;
 
     this.replaceContentCallback = replaceContentCallback;
 
@@ -42,9 +45,10 @@ export default class CreateTemplate {
     const componentDir: string = this.filePath;
     const fileName: string = this.fileName;
     try {
-      fileContent = await fse
-        .readFileSync(this.templatePath, "utf8")
-        .toString();
+      fileContent = await getTemplateContent(
+        this.extensionPath,
+        this.templateName
+      );
     } catch (error) {
       throw new Error(error);
     }
