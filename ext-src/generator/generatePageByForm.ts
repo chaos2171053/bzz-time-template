@@ -2,21 +2,24 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
+import GeneratePage from "./generatePage";
 
 interface GeneratePageByFormProps {
-  outputPath: string;
+  uri: vscode.Uri;
   context: vscode.ExtensionContext;
 }
 
 class GeneratePageByForm {
   private outputPath: string;
+  private uri: vscode.Uri;
   private readonly extensionPath: string;
   private static currentPanel: vscode.WebviewPanel | undefined = undefined;
   private static readonly webviewBuildPath = "webview-react/build";
   private static context: vscode.ExtensionContext;
 
-  public constructor({ outputPath, context }: GeneratePageByFormProps) {
-    this.outputPath = outputPath;
+  public constructor({ uri, context }: GeneratePageByFormProps) {
+    this.uri = uri;
+    this.outputPath = uri.path;
     this.extensionPath = context.extensionPath;
     GeneratePageByForm.context = context;
     this.init();
@@ -76,7 +79,7 @@ class GeneratePageByForm {
         console.log("get message from webview", message);
         switch (message.command) {
           case "generatePageByForm":
-            vscode.window.showErrorMessage(message.data);
+            this.generate(message.data);
             return;
           default:
             return;
@@ -87,7 +90,19 @@ class GeneratePageByForm {
     );
   }
 
-  private async getHtmlForWebview() {
+  public async generate(data: any) {
+    const { directoryName, listDataSet } = data;
+    console.log("data: ", data);
+    try {
+      await new GeneratePage({
+        uri: this.uri,
+        pageName: directoryName,
+        extensionPath: this.extensionPath,
+      });
+    } catch (error) {}
+  }
+
+  public async getHtmlForWebview() {
     const extensionPath = this.extensionPath;
 
     const webviewBuildPath = GeneratePageByForm.webviewBuildPath;

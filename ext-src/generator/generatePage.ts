@@ -6,15 +6,17 @@ import CreateTemplate from "./createTemplate";
 interface GeneratePageProps {
   uri: vscode.Uri;
   extensionPath: string;
+  pageName: string;
 }
 
 class GeneratePage {
   pageName: string = "";
   uri;
   extensionPath: string;
-  constructor({ uri, extensionPath }: GeneratePageProps) {
+  constructor({ uri, extensionPath, pageName }: GeneratePageProps) {
     this.uri = uri;
     this.extensionPath = extensionPath;
+    this.pageName = pageName.replace(/[^A-Za-z]/g, "");
     this.init();
   }
   /**
@@ -25,21 +27,9 @@ class GeneratePage {
 
     const extensionPath = this.extensionPath;
 
-    let pageName = await vscode.window.showInputBox({
-      prompt: "请输入页面名称.",
-    });
-
-    if (!pageName || pageName.length === 0) {
-      message("error", "页面名不能为空");
-      throw new Error("Page name can not be empty");
-    }
-
-    this.pageName = pageName.replace(/[^A-Za-z]/g, "");
-
-    console.log("Generate Page name: ", this.pageName);
     try {
       // create page directory
-      const pageDir = createDirectory(pagePath, pageName);
+      const pageDir = createDirectory(pagePath, this.pageName);
 
       // create page route index.js
       new CreateTemplate({
@@ -77,7 +67,6 @@ class GeneratePage {
         templateName: "ComponentName.less",
         extensionPath,
       });
-
       // create components directory
       const componentsDir = createDirectory(listDir, "components");
 
@@ -118,6 +107,7 @@ class GeneratePage {
         templateName: "ListDaSet.js",
         extensionPath,
       });
+      return Promise.resolve(true);
     } catch (error) {
       throw new Error(error);
     }

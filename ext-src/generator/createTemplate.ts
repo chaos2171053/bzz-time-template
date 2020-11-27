@@ -47,7 +47,6 @@ export default class CreateTemplate {
       fileContent = await fse
         .readFileSync(this.templatePath, "utf8")
         .toString();
-      console.log("fileContent: ", fileContent);
     } catch (error) {
       throw new Error(error);
     }
