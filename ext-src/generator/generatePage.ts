@@ -67,6 +67,15 @@ class GeneratePage {
         templateName: "ComponentName.less",
         extensionPath,
       });
+
+      // create styles/CreateModal.less.less
+      new CreateTemplate({
+        filePath: styleDir,
+        fileName: "CreateModal.less",
+        templateName: "ComponentName.less",
+        extensionPath,
+      });
+
       // create components directory
       const componentsDir = createDirectory(listDir, "components");
 
@@ -77,7 +86,11 @@ class GeneratePage {
         filePath: modalDir,
         fileName: "CreateModal.js",
         templateName: "ComponentName.js",
-        replaceFileName: true,
+        repalceContentCallback: (fileContent: any): any => {
+          const replaceContent = `CreateModal.js`.split(".")[0];
+          fileContent = fileContent.replace(/ComponentName/g, replaceContent);
+          return fileContent;
+        },
         extensionPath,
       });
 

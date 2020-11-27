@@ -6,8 +6,8 @@ interface Props {
   fileName: string;
   filePath: string;
   templateName: string;
-  replaceFileName?: boolean; // 是否替换文件内容，比如替换组件名
   extensionPath: string;
+  repalceContentCallback?: Function; // 替换内容回调
 }
 /**
  * 生成 模板文件
@@ -16,25 +16,23 @@ export default class CreateTemplate {
   fileName: string = "index";
   filePath: string = "";
   templateName: string = "";
-  replaceFileName: boolean = false;
   templatePath: string;
+  repalceContentCallback: Function | undefined;
 
   constructor(props: Props) {
     const {
       filePath,
       fileName,
       templateName,
-      replaceFileName = false,
       extensionPath,
+      repalceContentCallback,
     } = props;
     this.filePath = filePath;
     this.fileName = fileName;
 
-    console.log("_extensionPath=====", extensionPath);
-
     this.templatePath = path.join(extensionPath, `/templates/${templateName}`);
 
-    this.replaceFileName = replaceFileName;
+    this.repalceContentCallback = repalceContentCallback;
 
     this.init();
   }
@@ -50,9 +48,8 @@ export default class CreateTemplate {
     } catch (error) {
       throw new Error(error);
     }
-    if (this.replaceFileName) {
-      const replaceContent = fileName.split(".")[0];
-      fileContent = fileContent.replace(/ComponentName/g, replaceContent);
+    if (this.repalceContentCallback) {
+      fileContent = this.repalceContentCallback(fileContent);
     }
 
     try {

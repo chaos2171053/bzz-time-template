@@ -40,7 +40,11 @@ class GenerateComponent {
         filePath: componentDir,
         fileName: `${this.componentName}.js`,
         templateName: "ComponentName.js",
-        replaceFileName: true,
+        repalceContentCallback: (fileContent: any): any => {
+          const replaceContent = `${this.componentName}.js`.split(".")[0];
+          fileContent = fileContent.replace(/ComponentName/g, replaceContent);
+          return fileContent;
+        },
         extensionPath,
       });
       newComponentStyle = new CreateTemplate({
