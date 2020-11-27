@@ -2,7 +2,6 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
-import GeneratePage from "./generatePage";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 import replaceComponentName from "../utils/replaceComponentName";
@@ -189,13 +188,16 @@ class GeneratePageByForm {
         fileName: "ListDataSet.js",
         templateName: "ListDaSet.js",
         extensionPath,
+        replaceContentCallback: (fileContent: any) => {
+          this.replaceListDataSet(fileContent, listDataSet);
+        },
       });
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  public replaceListDataSet(fileContent: any) {
+  public replaceListDataSet(fileContent: any, listDataSet: Object) {
     return fileContent;
   }
 
