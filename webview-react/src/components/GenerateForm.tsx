@@ -71,11 +71,11 @@ const GenerateForm = () => {
       const { command, data } = vscodemessage;
       switch (command) {
         case "generate":
-          setSubmitFlag(false);
           if (data.message === "success") {
             message.success("生成成功");
           } else {
             message.error("生成失败");
+            setSubmitFlag(false);
           }
           break;
         default:

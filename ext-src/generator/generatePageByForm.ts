@@ -99,6 +99,10 @@ class GeneratePageByForm {
               this.showGenerateProcess({
                 message: "success",
               });
+              setTimeout(() => {
+                // pragmatically close the webview panel
+                GeneratePageByForm?.currentPanel?.dispose();
+              }, 1000);
             } catch (error) {
               this.showGenerateProcess({ message: error });
             }
