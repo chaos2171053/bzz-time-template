@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Space } from "antd";
 import VscodeHelper from "../utils/vscode-helper";
 import DirectoryForm from "./DirectoryForm";
@@ -64,6 +64,8 @@ const GenerateForm = () => {
   const onReset = () => {
     form.resetFields();
   };
+
+  const useEffect = () => {};
 
   return (
     <Form
