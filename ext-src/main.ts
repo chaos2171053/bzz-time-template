@@ -25,22 +25,6 @@ async function main(uri: vscode.Uri, context: vscode.ExtensionContext) {
   console.log("User select templateType: ", templateType);
 
   switch (templateType) {
-    case "组件":
-      const componentName = await vscode.window.showInputBox({
-        prompt: "请输入组件名称.",
-      });
-
-      if (!componentName || componentName.length === 0) {
-        message("error", "组件名不能为空");
-        throw new Error("Component name can not be empty");
-      }
-
-      new GenerateComponent({
-        outputPath: uri.path,
-        componentName,
-        extensionPath,
-      });
-      break;
     case "模版列表页":
       let pageName = await vscode.window.showInputBox({
         prompt: "请输入页面名称.",
