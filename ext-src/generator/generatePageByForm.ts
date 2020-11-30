@@ -83,8 +83,7 @@ class GeneratePageByForm {
         const { command, data } = message;
         switch (command) {
           case "generatePageByForm":
-            const formatData = this.formatGeneratePageByForm(data);
-            this.generate(formatData);
+            this.generate(data);
             return;
           default:
             return;
@@ -93,32 +92,6 @@ class GeneratePageByForm {
       undefined,
       context.subscriptions
     );
-  }
-
-  public formatGeneratePageByForm(data: any) {
-    const { listDataSet } = data;
-    const { url } = listDataSet.transport.read;
-    if (url) {
-      try {
-        data.listDataSet.transport.read = new Function(
-          `queryParams`,
-          `return {
-          url: "${url}",
-          method: 'get',
-          params: {
-            ...queryParams.params,
-            organizationId,
-            communityId,
-          },
-        }`
-        );
-      } catch (error) {
-        console.log("error :", error);
-        throw new Error(error);
-      }
-    }
-    console.log("data.listDataSet.transport------", data.listDataSet.transport);
-    return data;
   }
 
   public async generate(data: any) {
@@ -228,7 +201,6 @@ class GeneratePageByForm {
 
   public replaceListDataSet(fileContent: any, listDataSet: Object) {
     fileContent = generateDataSet(listDataSet);
-    console.log("generate DataSet :", fileContent);
     return fileContent;
   }
 
