@@ -6,6 +6,7 @@ import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
 import replaceComponentName from "./replaceComponentName";
 import generateDataSet from "./generateDataSet";
+import repalceTableColumn from "./repalceTableColumn";
 
 interface GeneratePageByFormProps {
   uri: vscode.Uri;
@@ -131,6 +132,8 @@ class GeneratePageByForm {
         fileName: "List.js",
         templateName: "ListComponent.js",
         extensionPath,
+        replaceContentCallback: (fileContent: string) =>
+          repalceTableColumn(fileContent, listDataSet),
       });
 
       const styleDir = createDirectory(listDir, "styles");
