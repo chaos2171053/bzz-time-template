@@ -69,6 +69,13 @@ class GeneratePageByForm {
     // insert html content into webview
     GeneratePageByForm.currentPanel.webview.html = await this.getHtmlForWebview();
 
+    GeneratePageByForm.currentPanel.webview.postMessage({
+      command: "route",
+      data: {
+        url: "/list",
+      },
+    });
+
     GeneratePageByForm.currentPanel.onDidDispose(
       async () => {
         GeneratePageByForm.currentPanel = undefined;

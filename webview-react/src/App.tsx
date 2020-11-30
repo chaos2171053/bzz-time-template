@@ -3,6 +3,7 @@ import { PageHeader, Layout } from "antd";
 import { HashRouter } from "react-router-dom";
 import Main from "./routes";
 import "./App.css";
+import Container from "./components/Container";
 
 const { Footer, Content } = Layout;
 
@@ -11,7 +12,9 @@ const App: FC = () => (
     <PageHeader title="Bzz time Template" />
     <HashRouter>
       <Content>
-        <Main />
+        <Container>
+          <Main />
+        </Container>
       </Content>
     </HashRouter>
     <Footer className="footer">
