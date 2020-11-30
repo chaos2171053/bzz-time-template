@@ -12,7 +12,11 @@ function Container(props: any) {
       const { command, data } = message;
       switch (command) {
         case "route":
-          data.url && history.push(data.url);
+          data.url &&
+            history.push({
+              pathname: `/${data.url}`,
+              state: data.data,
+            });
           break;
         default:
           break;

@@ -72,7 +72,10 @@ class GeneratePageByForm {
     GeneratePageByForm.currentPanel.webview.postMessage({
       command: "route",
       data: {
-        url: "/list",
+        url: "list",
+        data: {
+          message: "generate",
+        },
       },
     });
 
@@ -91,7 +94,14 @@ class GeneratePageByForm {
         const { command, data } = message;
         switch (command) {
           case "generatePageByForm":
-            this.generate(data);
+            try {
+              await this.generate(data);
+              this.showGenerateProcess({
+                message: "success",
+              });
+            } catch (error) {
+              this.showGenerateProcess({ message: error });
+            }
             return;
           default:
             return;
@@ -100,6 +110,15 @@ class GeneratePageByForm {
       undefined,
       context.subscriptions
     );
+  }
+
+  private showGenerateProcess({ message }: { message?: string }) {
+    GeneratePageByForm?.currentPanel?.webview.postMessage({
+      command: "generate",
+      data: {
+        message,
+      },
+    });
   }
 
   public async generate(data: any) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Space } from "antd";
+import { Form, Button, Space, message } from "antd";
 import VscodeHelper from "../utils/vscode-helper";
 import DirectoryForm from "./DirectoryForm";
 import ListForm from "./ListPage";
@@ -65,7 +65,25 @@ const GenerateForm = () => {
     form.resetFields();
   };
 
-  const useEffect = () => {};
+  useEffect(() => {
+    window.addEventListener("message", (event: any) => {
+      const vscodemessage = event.data; // The JSON data our extension sent
+      const { command, data } = vscodemessage;
+      switch (command) {
+        case "generate":
+          setSubmitFlag(false);
+          if (data.message === "success") {
+            message.success("生成成功");
+          } else {
+            message.error("生成失败");
+          }
+          break;
+        default:
+          break;
+      }
+    });
+    return () => {};
+  }, []);
 
   return (
     <Form
