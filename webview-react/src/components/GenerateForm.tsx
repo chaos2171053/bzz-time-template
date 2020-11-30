@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button, Space } from "antd";
 import VscodeHelper from "../utils/vscode-helper";
 import DirectoryForm from "./DirectoryForm";
@@ -7,6 +7,7 @@ import {
   pageDataSetInitialValues,
   pageDataSetInitialValuesProps,
 } from "../store";
+import "./GenerateForm.less";
 
 const vscode = new VscodeHelper();
 
@@ -18,10 +19,13 @@ const layout = {
     span: 20,
   },
 };
-const tailLayout = {
+
+const btnLayout = {
+  labelCol: {
+    span: 0,
+  },
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    span: 24,
   },
 };
 
@@ -40,9 +44,14 @@ const transformFormValus = (values: pageDataSetInitialValuesProps) => {
 
 const GenerateForm = () => {
   const [form] = Form.useForm();
+  const [submitFlag, setSubmitFlag] = useState(false);
   const onFinish = (values: any) => {
     values = transformFormValus(values);
     console.log("Success:", values);
+    if (submitFlag) {
+      return;
+    }
+    setSubmitFlag(true);
     vscode.postMessage({
       command: "generatePageByForm",
       data: values,
@@ -64,10 +73,11 @@ const GenerateForm = () => {
       initialValues={{ ...pageDataSetInitialValues }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      className="generate-form"
     >
       <DirectoryForm />
       <ListForm form={form} />
-      <Form.Item {...tailLayout}>
+      <Form.Item {...btnLayout} className="form-btns">
         <Space>
           <Button htmlType="button" onClick={onReset}>
             重置
