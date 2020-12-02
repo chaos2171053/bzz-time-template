@@ -58,11 +58,11 @@ class GeneratePageByForm {
         enableScripts: true,
         retainContextWhenHidden: true,
         // only load webview-react/build`s content
-        localResourceRoots: [
-          vscode.Uri.file(
-            path.join(extensionPath, GeneratePageByForm.webviewBuildPath)
-          ),
-        ],
+        // localResourceRoots: [
+        //   vscode.Uri.file(
+        //     path.join(extensionPath, GeneratePageByForm.webviewBuildPath)
+        //   ),
+        // ],
       }
     );
 
@@ -254,7 +254,6 @@ class GeneratePageByForm {
       .toArray()
       .forEach((item) => {
         const manifestScr = $(item).attr("href") || "";
-
         const manifesUri = vscode.Uri.file(
           path.join(extensionPath, webviewBuildPath, manifestScr)
         ).with({ scheme: "vscode-resource" });
