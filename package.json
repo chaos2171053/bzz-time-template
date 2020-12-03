@@ -2,11 +2,7 @@
   "name": "bzz-time-template",
   "displayName": "bzz-time-template",
   "description": "Auto generate code",
-<<<<<<< HEAD
-  "version": "3.0.10",
-=======
   "version": "3.0.12",
->>>>>>> develop
   "publisher": "chaos2171053",
   "author": {
     "name": "chaos2171053",
