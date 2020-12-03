@@ -29,6 +29,9 @@
   ],
   "main": "./out/ext-src/extension.js",
   "icon": "static/icon.png",
+  "extensionKind": [
+    "workspace"
+  ],
   "contributes": {
     "commands": [
       {
