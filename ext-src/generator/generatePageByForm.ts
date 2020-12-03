@@ -254,7 +254,6 @@ class GeneratePageByForm {
       .toArray()
       .forEach((item) => {
         const manifestScr = $(item).attr("href") || "";
-
         const manifesUri = vscode.Uri.file(
           path.join(extensionPath, webviewBuildPath, manifestScr)
         ).with({ scheme: "vscode-resource" });

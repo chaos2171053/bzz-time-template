@@ -2,9 +2,13 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
+## [3.0.1] - 2020-11-30
+
+- 修复生成环境打包失败。
+
 ## [3.0.0] - 2020-11-30
 
-- 通过表单配置列表页 DataSet
+- 通过表单配置列表页 DataSet。
 
 ## [2.0.0] - 2020-11-23
 
