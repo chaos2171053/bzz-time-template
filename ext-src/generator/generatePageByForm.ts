@@ -254,9 +254,11 @@ class GeneratePageByForm {
       .toArray()
       .forEach((item) => {
         const manifestScr = $(item).attr("href") || "";
-        const manifesUri = vscode.Uri.file(
-          path.join(extensionPath, webviewBuildPath, manifestScr)
-        ).with({ scheme: "vscode-resource" });
+        const manifesUri = GeneratePageByForm?.currentPanel?.webview?.asWebviewUri(
+          vscode.Uri.file(
+            path.join(extensionPath, webviewBuildPath, manifestScr)
+          ).with({ scheme: "vscode-resource" })
+        );
 
         $(item).attr("href", `${manifesUri}`);
       });
@@ -267,9 +269,11 @@ class GeneratePageByForm {
       .forEach((item) => {
         const scriptScr = $(item).attr("src") || "";
 
-        const scriptUri = vscode.Uri.file(
-          path.join(extensionPath, webviewBuildPath, scriptScr)
-        ).with({ scheme: "vscode-resource" });
+        const scriptUri = GeneratePageByForm?.currentPanel?.webview?.asWebviewUri(
+          vscode.Uri.file(
+            path.join(extensionPath, webviewBuildPath, scriptScr)
+          ).with({ scheme: "vscode-resource" })
+        );
 
         $(item).attr("src", `${scriptUri}`);
       });
@@ -279,9 +283,11 @@ class GeneratePageByForm {
       .toArray()
       .forEach((item) => {
         const styleLink = $(item).attr("href") || "";
-        const styleUri = vscode.Uri.file(
-          path.join(extensionPath, webviewBuildPath, styleLink)
-        ).with({ scheme: "vscode-resource" });
+        const styleUri = GeneratePageByForm?.currentPanel?.webview?.asWebviewUri(
+          vscode.Uri.file(
+            path.join(extensionPath, webviewBuildPath, styleLink)
+          ).with({ scheme: "vscode-resource" })
+        );
 
         $(item).attr("href", `${styleUri}`);
       });

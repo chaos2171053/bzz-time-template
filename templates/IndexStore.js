@@ -28,10 +28,9 @@ export const StoreProvider = injectIntl(
             ListDataSet({
               organizationId,
               communityId,
-            }),
-            []
+            })
           ),
-        []
+        [organizationId, communityId]
       );
 
       const createDataSet = useMemo(
