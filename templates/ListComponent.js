@@ -13,10 +13,8 @@ import {
 } from 'choerodon-ui';
 
 import Store from './stores';
-// TODO: 把 payment 替换为 微服务名
-import { renderNum } from '../../../payment-utils';
-// TODO: 把 payment 替换为 微服务名,并确认有 useListRefresh 这个hook
-import useListRefresh from '../../../pay-hooks/useListRefresh';
+import { renderNum } from '../../../microServiceName-utils';
+import useListRefresh from '../../../microServiceName-hooks/useListRefresh';
 import './styles/List.less';
 // TODO: 建议把 Modal 名字改得更详细易懂
 import CreateModal from './modal/CreateModal';
