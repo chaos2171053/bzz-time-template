@@ -8,6 +8,7 @@ import {
   pageDataSetInitialValuesProps,
 } from "../../../store";
 import "./GenerateList.less";
+import MicroService from "./MicroServiceForm";
 
 const vscode = new VscodeHelper();
 
@@ -95,6 +96,7 @@ const GenerateList = () => {
       onFinishFailed={onFinishFailed}
       className="generate-form"
     >
+      <MicroService />
       <DirectoryForm />
       <ListForm form={form} />
       <Form.Item {...btnLayout} className="form-btns">
