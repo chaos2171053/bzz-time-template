@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Space, message } from "antd";
-import VscodeHelper from "../utils/vscode-helper";
+import VscodeHelper from "../../../utils/vscode-helper";
 import DirectoryForm from "./DirectoryForm";
-import ListForm from "./ListPage";
+import ListForm from "./ListForm";
 import {
   pageDataSetInitialValues,
   pageDataSetInitialValuesProps,
-} from "../store";
-import "./GenerateForm.less";
+} from "../../../store";
+import "./GenerateList.less";
 
 const vscode = new VscodeHelper();
 
@@ -42,7 +42,7 @@ const transformFormValus = (values: pageDataSetInitialValuesProps) => {
   return values;
 };
 
-const GenerateForm = () => {
+const GenerateList = () => {
   const [form] = Form.useForm();
   const [submitFlag, setSubmitFlag] = useState(false);
   const onFinish = (values: any) => {
@@ -111,4 +111,4 @@ const GenerateForm = () => {
   );
 };
 
-export default GenerateForm;
+export default GenerateList;
