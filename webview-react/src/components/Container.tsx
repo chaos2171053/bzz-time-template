@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { withRouter } from "react-router";
 
 function Container(props: any) {
@@ -6,7 +6,7 @@ function Container(props: any) {
 
   console.log("history: ", history);
 
-  const watchRouteChange = () => {
+  const watchRouteChange = useCallback(() => {
     window.addEventListener("message", (event: any) => {
       const message = event.data; // The JSON data our extension sent
       const { command, data } = message;
@@ -22,11 +22,11 @@ function Container(props: any) {
           break;
       }
     });
-  };
+  }, [history]);
 
   useEffect(() => {
     watchRouteChange();
-  }, []);
+  }, [watchRouteChange]);
 
   return <>{children}</>;
 }

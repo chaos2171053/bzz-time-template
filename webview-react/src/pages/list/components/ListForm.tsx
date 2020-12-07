@@ -1,8 +1,8 @@
 import React from "react";
 import { Collapse, Space } from "antd";
 import { FormInstance } from "antd/lib/form/hooks/useForm";
-import BzzDataSet from "../DataSet";
-import "./index.less";
+import BzzDataSet from "../../../components/DataSet";
+import "./ListForm.less";
 
 const { Panel } = Collapse;
 interface ListFormProps {

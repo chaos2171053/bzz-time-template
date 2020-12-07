@@ -25,6 +25,10 @@ export const fieldInitialValues: fieldInitialValuesProps = {
   },
 };
 export const ListDataSetInitialValues = {
+  // 微服务名
+  microService: {
+    microServiceName: "",
+  },
   ...fieldInitialValues,
 };
 

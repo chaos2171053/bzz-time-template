@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Space, Card, Select } from "antd";
+import { Form, Input, Button, Space, Card, Select, Radio } from "antd";
 import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { FieldCommonProps, FieldType } from "./interface";
 import "./Fields.less";
@@ -60,7 +60,7 @@ function Fields(props: FieldsProps) {
                         key={`${baseFieldKey}__name`}
                         name={[baseFieldName, "name"]}
                         fieldKey={[`${baseFieldKey}__name`, "name"]}
-                        label="字段名 name"
+                        label="字段名称 name"
                         rules={[{ required: true, message: "请输入字段名" }]}
                       >
                         <Input
@@ -68,6 +68,31 @@ function Fields(props: FieldsProps) {
                             event: React.ChangeEvent<HTMLInputElement>
                           ) => onFieldNameChange(event, index)}
                         />
+                      </Form.Item>
+                      <Form.Item
+                        {...field}
+                        key={`${baseFieldKey}__label`}
+                        name={[baseFieldName, "label"]}
+                        fieldKey={[`${baseFieldKey}__label`, "label"]}
+                        label="标签名称 label"
+                        rules={[{ required: true, message: "请输入标签" }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                      <Form.Item
+                        label="是否必填"
+                        name={[baseFieldName, "required"]}
+                        rules={[
+                          {
+                            required: true,
+                            message: "是否必填",
+                          },
+                        ]}
+                      >
+                        <Radio.Group>
+                          <Radio value={true}>是</Radio>
+                          <Radio value={false}>否</Radio>
+                        </Radio.Group>
                       </Form.Item>
                       <Form.Item
                         {...field}
@@ -94,16 +119,6 @@ function Fields(props: FieldsProps) {
                             </>
                           ))}
                         </Select>
-                      </Form.Item>
-                      <Form.Item
-                        {...field}
-                        key={`${baseFieldKey}__label`}
-                        name={[baseFieldName, "label"]}
-                        fieldKey={[`${baseFieldKey}__label`, "label"]}
-                        label="标签 label"
-                        rules={[{ required: true, message: "请输入标签" }]}
-                      >
-                        <Input />
                       </Form.Item>
                     </Card>
                     <CloseCircleOutlined

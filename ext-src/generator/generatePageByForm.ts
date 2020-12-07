@@ -4,7 +4,6 @@ import * as cheerio from "cheerio";
 import { readFileSync } from "fs-extra";
 import createDirectory from "./createDirectory";
 import CreateTemplate from "./createTemplate";
-import replaceComponentName from "./replaceComponentName";
 import generateDataSet from "./generateDataSet";
 import repalceTableColumn from "./repalceTableColumn";
 
@@ -102,7 +101,7 @@ class GeneratePageByForm {
               setTimeout(() => {
                 // pragmatically close the webview panel
                 GeneratePageByForm?.currentPanel?.dispose();
-              }, 3000);
+              }, 1500);
             } catch (error) {
               this.showGenerateProcess({ message: error });
             }
@@ -126,7 +125,8 @@ class GeneratePageByForm {
   }
 
   public async generate(data: any) {
-    const { directoryName, listDataSet } = data;
+    const { directoryName, listDataSet, microService } = data;
+    const { microServiceName } = microService;
     const pageName = directoryName;
     const pagePath = this.outputPath;
     const extensionPath = this.extensionPath;
@@ -162,8 +162,14 @@ class GeneratePageByForm {
         fileName: "List.js",
         templateName: "ListComponent.js",
         extensionPath,
-        replaceContentCallback: (fileContent: string) =>
-          repalceTableColumn(fileContent, listDataSet),
+        replaceContentCallback: (fileContent: string) => {
+          fileContent = fileContent.replace(
+            /microServiceName/g,
+            microServiceName
+          );
+          fileContent = repalceTableColumn(fileContent, listDataSet);
+          return fileContent;
+        },
       });
 
       const styleDir = createDirectory(listDir, "styles");
@@ -194,7 +200,10 @@ class GeneratePageByForm {
         filePath: modalDir,
         fileName: "CreateModal.js",
         templateName: "ComponentName.js",
-        replaceContentCallback: replaceComponentName,
+        replaceContentCallback: (fileContent: string) => {
+          fileContent = fileContent.replace(/ComponentName/g, "CreateModal");
+          return fileContent;
+        },
         extensionPath,
       });
 

@@ -4,7 +4,6 @@ import { FieldCommonProps } from "./interface";
 
 export default function TransportFields(props: FieldCommonProps) {
   const { DataSetType } = props;
-  console.log("DataSetType: ", DataSetType);
   return (
     <>
       <Form.Item

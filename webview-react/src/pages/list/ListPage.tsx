@@ -1,10 +1,10 @@
 import React from "react";
-import GenerateForm from "../components/GenerateForm";
+import GenerateList from "./components/GenerateList";
 
 export default function List() {
   return (
     <>
-      <GenerateForm />
+      <GenerateList />
     </>
   );
 }
