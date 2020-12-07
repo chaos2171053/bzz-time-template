@@ -2,6 +2,10 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
+## [3.1.0] - 2020-12-07
+
+- 添加微服务配置。
+
 ## [3.0.13] - 2020-12-03
 
 - 修复生成环境打包失败。
