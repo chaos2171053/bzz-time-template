@@ -57,7 +57,9 @@ function ListView(props) {
       onOk() {
       },
       onClose() {
-        createDataSet.reset();
+        if (createDataSet.current) {
+          createDataSet.remove(createDataSet.current);
+        }
       },
     });
   };
@@ -76,7 +78,9 @@ function ListView(props) {
       onOk() {
       },
       onClose() {
-        createDataSet.reset();
+        if (createDataSet.current) {
+          createDataSet.remove(createDataSet.current);
+        }
       },
     });
   };
@@ -95,7 +99,9 @@ function ListView(props) {
       onOk() {
       },
       onClose() {
-        createDataSet.reset();
+        if (createDataSet.current) {
+          createDataSet.remove(createDataSet.current);
+        }
       },
     });
   };
