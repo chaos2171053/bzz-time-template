@@ -2,6 +2,10 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
+## [3.1.2] - 2020-12-07
+
+- 修复关闭 modal 时 dataset 没有重置。
+
 ## [3.1.0] - 2020-12-07
 
 - 添加微服务配置。
