@@ -176,7 +176,7 @@ function ListView(props) {
   return (
     <>
       <Content>
-        <Form>
+        <Form labelLayout="horizontal">
           <Table
             pristine
             dataSet={listDataSet}
