@@ -2,6 +2,7 @@
 .vscode-test/**
 out/test/**
 webview-react/**
+!webview-react/build/**
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md

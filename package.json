@@ -2,7 +2,7 @@
   "name": "bzz-time-template",
   "displayName": "bzz-time-template",
   "description": "Auto generate code",
-  "version": "3.0.0",
+  "version": "3.1.1",
   "publisher": "chaos2171053",
   "author": {
     "name": "chaos2171053",
@@ -29,6 +29,9 @@
   ],
   "main": "./out/ext-src/extension.js",
   "icon": "static/icon.png",
+  "extensionKind": [
+    "workspace"
+  ],
   "contributes": {
     "commands": [
       {

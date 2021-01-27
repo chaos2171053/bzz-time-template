@@ -87,7 +87,10 @@ class GeneratePage {
         filePath: modalDir,
         fileName: "CreateModal.js",
         templateName: "ComponentName.js",
-        replaceContentCallback: replaceComponentName,
+        replaceContentCallback: (fileContent: string) => {
+          fileContent = fileContent.replace(/ComponentName/g, "CreateModal");
+          return fileContent;
+        },
         extensionPath,
       });
 
