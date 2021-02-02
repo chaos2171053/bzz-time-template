@@ -19,7 +19,7 @@
 
 [Visual Studio Code marketplace 搜索 bzz-time-template](https://marketplace.visualstudio.com/items?itemName=chaos2171053.bzz-time-template)
 
-### Usage
+### Useage
 
 1. 在项目的 `routes` 目录下右键，选择 `Generate: bzz time template`
 2. 选择 `模版列表页` ，输入路由名称即可生成对应的页面 List + CRUD Modal + DataSet
