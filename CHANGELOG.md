@@ -2,13 +2,17 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
+## [3.3] - 2021-03-02
+
+- 添加 github ci。
+
 ## [3.2.1] - 2021-03-02
 
-- 修改使用说明
+- 修改使用说明。
 
 ## [3.2.0] - 2021-01-27
 
-- 列表页 layout 调整
+- 列表页 layout 调整。
 
 ## [3.1.2] - 2020-12-07
 
