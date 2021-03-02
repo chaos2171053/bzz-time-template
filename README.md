@@ -21,6 +21,8 @@
 
 ### Useage
 
+gif 示例文件加载稍慢，稍等一下。
+
 1. 在项目的 `routes` 目录下右键，选择 `Generate: bzz time template`
 2. 选择 `模版列表页` ，输入路由名称即可生成对应的页面 List + CRUD Modal + DataSet
    ![demo1](./static/demo-1.gif)
