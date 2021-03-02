@@ -1,7 +1,7 @@
 # bzz-time-template
 
 <p align="center">
-    <img alt="logo" src="https://github.com/chaos2171053/bzz-time-template/blob/develop/static/icon.png?raw=true" width="120" height="120" style="margin-bottom: 10px;">
+    <img alt="logo" src="./icon.png" width="120" height="120" style="margin-bottom: 10px;">
 </p>
 
 一款自动生成组件、业务页面代码的 vscode 插件。
@@ -25,9 +25,9 @@ gif 示例文件加载稍慢，稍等一下。
 
 1. 在项目的 `routes` 目录下右键，选择 `Generate: bzz time template`
 2. 选择 `模版列表页` ，输入路由名称即可生成对应的页面 List + CRUD Modal + DataSet
-   ![demo1](./static/demo-1.gif)
+   ![demo1](./demo-1.gif)
 3. 选择 `表单配置列表页` 则可生成对应的页面 List + CRUD Modal + DataSet，可通过表单配置 List 字段和接口地址。
-   ![demo2](./static/demo-2.gif)
+   ![demo2](./demo-2.gif)
 
 ## TODO
 
