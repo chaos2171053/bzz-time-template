@@ -1,7 +1,7 @@
 # bzz-time-template
 
 <p align="center">
-    <img alt="logo" src="./icon.png" width="120" height="120" style="margin-bottom: 10px;">
+    <img alt="logo" src="./static/icon.png" width="120" height="120" style="margin-bottom: 10px;">
 </p>
 
 一款自动生成组件、业务页面代码的 vscode 插件。
