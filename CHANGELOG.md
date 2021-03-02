@@ -2,6 +2,10 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
+## [3.2.1] - 2021-03-02
+
+- 修改使用说明
+
 ## [3.2.0] - 2021-01-27
 
 - 列表页 layout 调整
