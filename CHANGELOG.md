@@ -2,7 +2,7 @@
 
 All notable changes to the "bzz-time-template" extension will be documented in this file.
 
-## [3.3.2] - 2021-03-02
+## [3.3.3] - 2021-03-02
 
 - 压缩 demo gif 图大小。
 
